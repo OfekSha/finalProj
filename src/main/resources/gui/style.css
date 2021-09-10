@@ -1,0 +1,93 @@
+.root{
+	-fx-pref-width:600px;
+	-fx-pref-height:600px;
+	-fx-background-color: #74b9fadf;
+	-fx-background-radius: 5px;
+
+}
+.text-area .content{
+	-fx-background-color: #2b98ffdf;
+}
+.header {
+	-fx-alignment: center;
+	-fx-background-color: #0000ff93;
+	-fx-background-radius: 10px;
+	-fx-padding:5px ;
+	-fx-pref-width:600px;
+	-fx-pref-height:50px;
+	-fx-effect: dropshadow(gaussian ,#0000ff93,15,0.6,5px,5px);
+
+}
+.header .label{
+	-fx-font-size:36px;
+	-fx-text-fill:black;
+	-fx-effect: dropshadow(gaussian ,white,1,1,0px,0px);
+}
+.button{
+	-fx-background-color:#00ced1, #018486;
+	-fx-background-radius: 25px;
+	-fx-effect: dropshadow(gaussian  ,#007c7e,15,0.2,3px,5px);
+	-fx-background-insets: 0, 450% 450%;
+	-fx-cursor : hand ;
+
+}
+.button .text{
+	-fx-font-size:20px;
+	-fx-fill: white;
+	-fx-effect: dropshadow(gaussian ,#00ced1,1,1,0px,0px);
+}
+.button:hover{
+	-fx-background-color:#048b8d;
+	-fx-background-radius: 25px;
+	-fx-effect: dropshadow(gaussian  ,#004b4d,15,0.2,3px,5px);
+
+}
+.button:armed{
+	-fx-background-color:#026d6e;
+	-fx-background-radius: 25px;
+	-fx-effect: dropshadow(gaussian  ,#004b4d,15,0.2,5px,8px);
+
+}
+.modelElement{
+-fx-border-width: 5px;
+}
+.modelElement.table{
+-fx-background-image: url("photos/table.jpg");
+-fx-background-size: stretch;
+
+}
+.avaible{
+-fx-effect: dropshadow(gaussian ,green,1,1,0px,0px);
+}
+.full{
+-fx-effect: dropshadow(gaussian ,red,1,1,0px,0px);
+}
+.chair{
+-fx-background-image: url("photos/chair.png");
+-fx-background-size: stretch;
+
+}
+.chair .text{
+-fx-effect: dropshadow(gaussian ,white,1,1,0px,0px);
+}
+.table{
+-fx-background-image: url("photos/table.png");
+-fx-background-size: stretch;
+}
+
+.smokingZone{
+-fx-background-image: url("photos/smokingZone.png");
+-fx-background-size: stretch;
+}
+.barTable{
+-fx-background-image: url("photos/bar.png");
+-fx-background-size: stretch;
+}
+.modelElement.full{
+-fx-border-color: red;
+
+}
+.modelElement.notfull{
+-fx-border-color: green
+
+}
