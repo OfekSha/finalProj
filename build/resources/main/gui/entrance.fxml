@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <HBox alignment="CENTER" layoutX="174.0" layoutY="268.0" prefHeight="65.0" prefWidth="252.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" text="LogIn" />
+            <Button mnemonicParsing="false" text="Register" />
+         </children>
+      </HBox>
+      <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
+         <children>
+            <Label text="Find My Restaurant ">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="548.0" layoutY="562.0" prefHeight="38.0" prefWidth="52.0">
+         <children>
+            <Button mnemonicParsing="false" text="Exit" />
+         </children>
+      </HBox>
+   </children>
+</Pane>
