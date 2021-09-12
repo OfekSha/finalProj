@@ -3,7 +3,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 group 'org.example'
@@ -11,7 +11,9 @@ version '1.0-SNAPSHOT'
 
 
 
-
+application{
+    mainClassName("gui.App")
+}
 repositories {
     mavenCentral()
 }
@@ -20,7 +22,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     implementation 'org.jxmapviewer:jxmapviewer2:2.6'
-    compile 'com.google.firebase:firebase-admin:7.3.0'
+    implementation 'com.google.firebase:firebase-admin:7.3.0'
 
 }
 
@@ -29,9 +31,53 @@ test {
 }
 
 javafx {
-    version = "11.0.1"
-    modules = [ 'javafx.controls', 'javafx.fxml' ,'javafx.swing']
+    version = "17"
+    modules = [ 'javafx.controls', 'javafx.fxml' ,'javafx.swing','javafx.base','javafx.graphics']
 }
-mainClassName = 'gui.App'
+jar {
+    /*
+    //from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }}
+    manifest {
+        //inputs.files( configurations.runtimeClasspath )
+
+        attributes(
+                'Main-Class': 'gui.App'
+        )
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    */
+    baseName = 'test'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    //exclude "META-INF/*.SF"
+    //exclude "META-INF/*.DSA"
+    //exclude "META-INF/*.RSA"
+
+    manifest {
+        inputs.files( configurations.runtimeClasspath )
+        attributes 'Main-Class': 'gui.Launcher'
+    }
+
+}
+/*task customFatJar(type: Jar) {
+    baseName = 'test'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+
+    exclude "META-INF/*.SF"
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
+
+    manifest {
+        inputs.files( configurations.runtimeClasspath )
+        attributes 'Main-Class': 'gui.Launcher'
+    }
+}*/
+
+
+mainClassName = 'gui.Launcher'
 
 
