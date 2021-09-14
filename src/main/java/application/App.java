@@ -1,4 +1,4 @@
-package gui;
+package application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("chooseLocation.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/entrance.fxml"));
             Scene scene = new Scene(root, 1000, 1000);
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -12,7 +12,7 @@ version '1.0-SNAPSHOT'
 
 
 application{
-    mainClassName("gui.App")
+    mainClassName("application.Launcher")
 }
 repositories {
     mavenCentral()
@@ -50,13 +50,13 @@ jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 
-    //exclude "META-INF/*.SF"
-    //exclude "META-INF/*.DSA"
-    //exclude "META-INF/*.RSA"
+    exclude "META-INF/*.SF"
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
 
     manifest {
         inputs.files( configurations.runtimeClasspath )
-        attributes 'Main-Class': 'gui.Launcher'
+        attributes 'Main-Class': 'application.Launcher'
     }
 
 }
@@ -76,8 +76,10 @@ jar {
         attributes 'Main-Class': 'gui.Launcher'
     }
 }*/
+run{
+    standardInput = System.in
+}
 
-
-mainClassName = 'gui.Launcher'
+mainClassName = 'application.Launcher'
 
 

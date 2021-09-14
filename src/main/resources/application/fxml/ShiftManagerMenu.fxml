@@ -129,7 +129,7 @@
                            <children>
                               <ImageView fitHeight="44.0" fitWidth="43.0" opacity="0.23" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <image>
-                                    <Image url="@photos/table.jpg" />
+                                    <Image url="@../photos/table.jpg" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" disable="true" prefHeight="58.0" prefWidth="52.0" text="5" textFill="#027bf4" GridPane.columnIndex="3" GridPane.rowIndex="2">
@@ -139,12 +139,12 @@
                               </Label>
                               <ImageView fitHeight="86.0" fitWidth="85.0" opacity="0.45" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
                                  <image>
-                                    <Image url="@photos/smokingZone.png" />
+                                    <Image url="@../photos/smokingZone.png" />
                                  </image>
                               </ImageView>
                               <ImageView fitHeight="44.0" fitWidth="43.0" opacity="0.45" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
                                  <image>
-                                    <Image url="@photos/table.jpg" />
+                                    <Image url="@../photos/table.jpg" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" disable="true" prefHeight="58.0" prefWidth="55.0" text="5" textFill="#027bf4" GridPane.columnIndex="4" GridPane.rowIndex="4">
@@ -154,7 +154,7 @@
                               </Label>
                               <ImageView fitHeight="73.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@photos/bar.jpg" />
+                                    <Image url="@../photos/bar.jpg" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="58.0" prefWidth="69.0" text="2/5" textFill="#027bf4">

@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EntranceController">
    <children>
       <HBox alignment="CENTER" layoutX="174.0" layoutY="268.0" prefHeight="65.0" prefWidth="252.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="LogIn" />
-            <Button mnemonicParsing="false" text="Register" />
+            <Button fx:id="btn_login" mnemonicParsing="false" onAction="#btnClicked" text="LogIn" />
+            <Button fx:id="btn_register" mnemonicParsing="false" onAction="#btnClicked" text="Register" />
          </children>
       </HBox>
       <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">

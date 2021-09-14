@@ -1,4 +1,4 @@
-package gui.controller;
+package application.controller;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingNode;

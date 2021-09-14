@@ -218,7 +218,7 @@
                                 <children>
                                     <ImageView fitHeight="73.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" styleClass="avaible">
                                         <image>
-                                            <Image url="@photos/bar.png" />
+                                            <Image url="@../photos/bar.png" />
                                         </image>
                                     </ImageView>
                                     <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="58.0" prefWidth="69.0" styleClass="avaible" text="2/5" textFill="#027bf4">
