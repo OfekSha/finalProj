@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LoginController">
    <children>
       <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
          <children>
@@ -30,22 +30,22 @@
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="193.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="60.0" text="ID:" />
-                  <TextField />
+                  <TextField fx:id="TF_id" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="193.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="60.0" text="Name:" />
-                  <TextField />
+                  <TextField fx:id="TF_name" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="193.0">
                <children>
                   <Label prefWidth="60.0" text="Password:" />
-                  <PasswordField />
+                  <PasswordField fx:id="TF_password" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" text="Login" />
+            <Button fx:id="btn_login" mnemonicParsing="false" onAction="#btnClicked" text="Login" />
          </children>
       </VBox>
    </children>

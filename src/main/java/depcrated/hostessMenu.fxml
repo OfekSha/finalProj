@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../../resources/application/fxml/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane layoutY="63.0" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -52,7 +52,7 @@
                            <children>
                               <ImageView fitHeight="73.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" styleClass="avaible">
                                  <image>
-                                    <Image url="@../photos/bar.png" />
+                                    <Image url="@../../resources/application/photos/bar.png" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="58.0" prefWidth="69.0" styleClass="avaible" text="2/5" textFill="#027bf4">
@@ -123,7 +123,7 @@
                   </BorderPane>
                </content>
             </Tab>
-            <Tab fx:id="notifications" text="Chat">
+            <Tab fx:id="chat" text="Chat">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -142,7 +142,7 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="chat" text="Notifications">
+            <Tab fx:id="notifications" text="Notifications">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
