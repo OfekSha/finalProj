@@ -1,7 +1,9 @@
 package application.entities;
 
+
 import org.jxmapviewer.viewer.GeoPosition;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Restaurant {
@@ -13,7 +15,9 @@ public class Restaurant {
     private Set<REST_TAGS> tags;
     private GeoPosition position;
     private int id;
-
+    private ArrayList<Table> tables;
+    private int model_height;
+    private int model_width;
     public Restaurant(String name, String ownerName, String address, String phoneNumber, String password, Set<REST_TAGS> tags, GeoPosition position, int id) {
         this.name = name;
         this.ownerName = ownerName;
@@ -87,5 +91,29 @@ public class Restaurant {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public ArrayList<Table> getTables() {
+        return tables;
+    }
+
+    public void setTables(ArrayList<Table> tables) {
+        this.tables = tables;
+    }
+
+    public int getModel_height() {
+        return model_height;
+    }
+
+    public void setModel_height(int model_height) {
+        this.model_height = model_height;
+    }
+
+    public int getModel_width() {
+        return model_width;
+    }
+
+    public void setModel_width(int model_width) {
+        this.model_width = model_width;
     }
 }
