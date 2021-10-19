@@ -44,7 +44,7 @@ public class RegisterController {
         Button btn = (Button) event.getSource(); // get the button object.
         if (btn.equals(btn_register)){
             temp_rest= new Restaurant(TF_restName.getText(),TF_ownerName.getText(),TF_address.getText(),TF_phone.getText(),TF_password.getText(),null,null,-1);
-            DataHolder.dao_rest.save(temp_rest);
+            DataHolder.restaurant.save(temp_rest);
 
         }
 

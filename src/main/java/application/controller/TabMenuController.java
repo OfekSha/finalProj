@@ -45,7 +45,6 @@ public class TabMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showByPermission(Permission.Owner); // testing
-        modelController=new ModelController(modelTable);
         ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
         testTables.add(new Table(0,4,false,false,0,0));
         testTables.add(new Table(1,3,true,false,2,0));
@@ -57,29 +56,20 @@ public class TabMenuController implements Initializable {
     }
     private void showByPermission(Permission p){
         ObservableList<Tab> tabs = tabPane.getTabs();
-        switch (p){
-            case Owner:
+        modelController=new ModelController(modelTable);
+        switch (p) {
+            case Waiter:
+                tabs.remove(notifications);
                 tabs.remove(chat);
-                break;
+            case Hostess:
+                tabs.remove(settings);
             case Manager:
                 tabs.remove(permissions);
                 tabs.remove(modelEdit);
-                tabs.remove(chat);
+            case Owner:
                 break;
-            case Hostess:
-                tabs.remove(permissions);
-                tabs.remove(modelEdit);
-                tabs.remove(settings);
-                break;
-            case Waiter:
-                tabs.remove(settings);
-                tabs.remove(permissions);
-                tabs.remove(modelEdit);
-                tabs.remove(notifications);
-                tabs.remove(chat);
-                break;
-
-
+            default:
+// the permission not exist.
         }
     }
 

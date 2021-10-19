@@ -1,4 +1,4 @@
-package tests.DAO;
+package DAO;
 
 import application.controller.dao.DAO;
 import application.entities.Restaurant;
