@@ -1,0 +1,31 @@
+
+.table{
+-fx-alignment: center;
+-fx-background-repeat: no-repeat;
+ -fx-background-position: center;
+ -fx-background-size: stretch;
+    -fx-background-image:
+        url("../photos/table.png");
+}
+.chair{
+-fx-alignment: left;
+-fx-background-repeat: no-repeat;
+ -fx-background-position: right;
+ -fx-background-size: contain;
+    -fx-background-image:
+        url("../photos/chair.png");
+}
+.green{
+-fx-effect: innershadow(gaussian  ,green,5,50,0,0);
+}
+.red{
+-fx-effect: innershadow(gaussian  ,red,5,50,0,0);
+}
+.smoke_zone{
+-fx-alignment: center;
+-fx-background-repeat: no-repeat;
+ -fx-background-position: center;
+ -fx-background-size: stretch;
+    -fx-background-image:
+        url("../photos/smokingZone.png");
+}

@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -45,15 +45,15 @@ public class TabMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showByPermission(Permission.Owner); // testing
-        modelController=new ModelController(modelView);
+        modelController=new ModelController(modelTable);
         ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
-        testTables.add(new Table(0,4,false,true,0,0));
-        testTables.add(new Table(1,4,false,true,2,0));
-        testTables.add(new Table(2,4,false,true,2,1));
-        testTables.add(new Table(3,4,false,true,0,3));
-        testTables.add(new Table(4,4,false,true,4,4));
-        testTables.add(new Table(5,4,false,true,3,0));
-        setModel(6,6,testTables);
+        testTables.add(new Table(0,4,false,false,0,0));
+        testTables.add(new Table(1,3,true,false,2,0));
+        testTables.add(new Table(2,5,true,true,2,1));
+        testTables.add(new Table(3,10,true,true,0,3));
+        testTables.add(new Table(4,2,false,true,4,4));
+        testTables.add(new Table(99,9,false,false,3,0));
+        modelController.setModel(10,10,testTables);
     }
     private void showByPermission(Permission p){
         ObservableList<Tab> tabs = tabPane.getTabs();
@@ -82,29 +82,5 @@ public class TabMenuController implements Initializable {
 
         }
     }
-    private void  setModel(int x , int y, ArrayList<Table> tables){
-        modelTable.getColumnConstraints().clear();
-        modelTable.getRowConstraints().clear();
-        modelTable.getChildren().clear();
-        modelTable.setGridLinesVisible(true);
-        for (int i=0;i<y;i++){
-            ColumnConstraints colConst = new ColumnConstraints();
-            colConst.setPercentWidth(100.0 / y);
-            modelTable.getColumnConstraints().add(colConst);
-        }
-        for (int i=0;i<x;i++){
-            RowConstraints rowConst = new RowConstraints();
-            rowConst.setPercentHeight(100.0 / x);
-            modelTable.getRowConstraints().add(rowConst);
-        }
-        for (Table table:tables){
-            Pane cell= new Pane();
-            TextField tf;
-            cell.getChildren().add(tf=new TextField(""+table.getId()));
-            //cell.setPrefWidth(3);
-            //cell.setPrefHeight(3);
-            modelTable.add(cell,table.getY(),table.getX());
 
-        }
-    }
 }

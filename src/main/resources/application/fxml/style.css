@@ -51,43 +51,7 @@
 .modelElement{
 -fx-border-width: 5px;
 }
-.modelElement.table{
--fx-background-image: url("photos/table.jpg");
--fx-background-size: stretch;
-
-}
 .avaible{
--fx-effect: dropshadow(gaussian ,green,1,1,0px,0px);
-}
-.full{
--fx-effect: dropshadow(gaussian ,red,1,1,0px,0px);
-}
-.chair{
--fx-background-image: url("photos/chair.png");
--fx-background-size: stretch;
-
-}
-.chair .text{
--fx-effect: dropshadow(gaussian ,white,1,1,0px,0px);
-}
-.table{
--fx-background-image: url("photos/table.png");
--fx-background-size: stretch;
-}
-
-.smokingZone{
--fx-background-image: url("photos/smokingZone.png");
--fx-background-size: stretch;
-}
-.barTable{
--fx-background-image: url("photos/bar.png");
--fx-background-size: stretch;
-}
-.modelElement.full{
--fx-border-color: red;
-
-}
-.modelElement.notfull{
--fx-border-color: green
-
+-fx-effect: dropshadow(gaussian ,blue,1,1,0px,0px);
+-fx-background-color:#ffffffff;
 }
