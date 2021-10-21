@@ -51,6 +51,17 @@ public class AppTest extends ApplicationTest {
         verifyThat("Login", Node::isVisible);
 
     }
+    @Test
+    void testPermissions() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("asd"));
+        clickOn(".password").type(getKeyCodes("sad"));
+        clickOn("Login");
+        clickOn("Permissions");
+        sleep(20000);
+        clickOn("name").type(getKeyCodes("sad"));
+    }
     private KeyCode[] getKeyCodes(String name){
         KeyCode[] keycode= new KeyCode[name.length()];
         for (int i=0;i<name.length();i++){

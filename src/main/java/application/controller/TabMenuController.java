@@ -1,20 +1,20 @@
 package application.controller;
 
+import application.controller.tabs.ModelController;
+import application.controller.tabs.PermissionsController;
 import application.entities.Permission;
-import application.entities.Table;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TabMenuController implements Initializable {
+
     public ModelController modelController;
     @FXML
     private TabPane tabPane;
@@ -24,6 +24,8 @@ public class TabMenuController implements Initializable {
     private Tab settings;
 
 
+    @FXML
+    private TableView tableView_permissions;
     @FXML
     private Tab permissions;
 
@@ -38,27 +40,27 @@ public class TabMenuController implements Initializable {
 
     @FXML
     private Tab chat;
-
+    @FXML
+    private TableColumn tc_name;
+    @FXML
+    private TableColumn tc_password;
+    @FXML
+    private TableColumn tc_permission;
     @FXML
     private HBox header;
-
+    @FXML
+    private Button btn_permis_save;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showByPermission(Permission.Owner); // testing
-        ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
-        testTables.add(new Table(0,4,false,false,0,0));
-        testTables.add(new Table(1,3,true,false,2,0));
-        testTables.add(new Table(2,5,true,true,2,1));
-        testTables.add(new Table(3,10,true,true,0,3));
-        testTables.add(new Table(4,2,false,true,4,4));
-        testTables.add(new Table(99,9,false,false,3,0));
-        modelController.setModel(10,10,testTables);
+
     }
     private void showByPermission(Permission p){
         ObservableList<Tab> tabs = tabPane.getTabs();
-        modelController=new ModelController(modelTable);
         switch (p) {
             case Waiter:
+                modelController=new ModelController(modelTable);
+                modelController.testModel(); // @@TODO: need to delete it and move to test.
                 tabs.remove(notifications);
                 tabs.remove(chat);
             case Hostess:
@@ -67,8 +69,10 @@ public class TabMenuController implements Initializable {
                 tabs.remove(permissions);
                 tabs.remove(modelEdit);
             case Owner:
+                PermissionsController pController=new PermissionsController(tableView_permissions);
                 break;
             default:
+                tabs.clear();
 // the permission not exist.
         }
     }

@@ -7,6 +7,15 @@
 
 <Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TabMenuController">
     <children>
+        <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
+            <children>
+                <Label text="Find My Restuaraunt ">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
         <TabPane fx:id="tabPane" layoutY="63.0" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab fx:id="Settings" text="Options">
@@ -201,14 +210,8 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0">
-                                    <columns>
-                                        <TableColumn prefWidth="133.0" text="name" />
-                                        <TableColumn prefWidth="222.0" text="password" />
-                                        <TableColumn prefWidth="73.0" text="permission" />
-                                    </columns>
-                                </TableView>
-                                <Button layoutX="89.0" layoutY="389.0" mnemonicParsing="false" text="Save" />
+                                <TableView fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
+                                <Button fx:id="btn_permis_save" layoutX="89.0" layoutY="389.0" mnemonicParsing="false" text="Save" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -329,15 +332,6 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
-            <children>
-                <Label text="Find My Restuaraunt ">
-                    <font>
-                        <Font size="36.0" />
-                    </font>
-                </Label>
-            </children>
-        </HBox>
         <HBox layoutX="548.0" layoutY="567.0" prefHeight="38.0" prefWidth="52.0">
             <children>
                 <Button mnemonicParsing="false" text="Exit" />

@@ -1,4 +1,4 @@
-package application.controller;
+package application.controller.tabs;
 
 import application.entities.Table;
 import gui.controller.cellController;
@@ -11,6 +11,16 @@ import javafx.scene.layout.RowConstraints;
 import java.util.ArrayList;
 
 public class ModelController {
+    public void testModel(){
+        ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
+        testTables.add(new Table(0,4,false,false,0,0));
+        testTables.add(new Table(1,3,true,false,2,0));
+        testTables.add(new Table(2,5,true,true,2,1));
+        testTables.add(new Table(3,10,true,true,0,3));
+        testTables.add(new Table(4,2,false,true,4,4));
+        testTables.add(new Table(99,9,false,false,3,0));
+        setModel(10,10,testTables);
+    }
     //Tab modelTab;
     GridPane modelTable;
     public ModelController(GridPane modelTable){
