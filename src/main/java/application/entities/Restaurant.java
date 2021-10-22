@@ -4,6 +4,7 @@ package application.entities;
 import org.jxmapviewer.viewer.GeoPosition;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Restaurant {
@@ -18,6 +19,7 @@ public class Restaurant {
     private ArrayList<Table> tables;
     private int model_height;
     private int model_width;
+    private HashSet<Client> employee= new HashSet<Client>();
     public Restaurant(String name, String ownerName, String address, String phoneNumber, String password, Set<REST_TAGS> tags, GeoPosition position, int id) {
         this.name = name;
         this.ownerName = ownerName;
@@ -27,6 +29,10 @@ public class Restaurant {
         this.tags = tags;
         this.position = position;
         this.id = id;
+    }
+
+    public HashSet<Client> getEmployee() {
+        return employee;
     }
 
     public String getName() {

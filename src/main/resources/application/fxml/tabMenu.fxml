@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -18,7 +17,7 @@
         </HBox>
         <TabPane fx:id="tabPane" layoutY="63.0" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab fx:id="Settings" text="Options">
+                <Tab fx:id="options" text="Options">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -33,13 +32,13 @@
                                         <HBox prefHeight="30.0" prefWidth="282.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="res Name:" />
-                                                <TextField editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" />
+                                                <TextField fx:id="tf_name" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" />
                                             </children>
                                         </HBox>
                                         <HBox>
                                             <children>
                                                 <Label prefWidth="90.0" text="Choose tags:" />
-                                                <SplitMenuButton mnemonicParsing="false" text="tags">
+                                                <SplitMenuButton fx:id="smbtn_tags" mnemonicParsing="false" text="tags">
                                                     <items>
                                                         <CheckMenuItem mnemonicParsing="false" text="Kosher" />
                                                         <CheckMenuItem mnemonicParsing="false" text="Thiland" />
@@ -52,37 +51,37 @@
                                         <HBox prefHeight="28.0" prefWidth="215.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="Owner Name:" />
-                                                <TextField editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                                <TextField fx:id="tf_owner" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="25.0" prefWidth="200.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="Country" />
-                                                <TextField editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                                <TextField fx:id="tf_country" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="25.0" prefWidth="200.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="Region:" />
-                                                <TextField editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                                <TextField fx:id="tf_region" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="25.0" prefWidth="200.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="Adress:" />
-                                                <TextField editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                                <TextField fx:id="tf_adress" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="25.0" prefWidth="200.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="Phone number:" />
-                                                <TextField editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                                <TextField fx:id="tf_phone" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="30.0" prefWidth="215.0">
                                             <children>
                                                 <Label prefWidth="90.0" text="Status:" />
-                                                <MenuButton disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable">
+                                                <MenuButton fx:id="mb_status" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable">
                                                     <items>
                                                         <MenuItem mnemonicParsing="false" text="Aviable" />
                                                         <MenuItem mnemonicParsing="false" text="Inaviable" />
@@ -94,114 +93,6 @@
                               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="227.0" text="Save" />
                                     </children>
                                 </VBox>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="settings" text="Settings">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <VBox alignment="TOP_CENTER" layoutX="95.0" layoutY="90.0" prefHeight="281.0" prefWidth="215.0">
-                                    <children>
-                                        <HBox prefHeight="30.0" prefWidth="282.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="res Name:" />
-                                                <TextField promptText="BP">
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin></TextField>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="26.0" prefWidth="282.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="password" />
-                                                <TextField promptText="*****">
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin></TextField>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="215.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="Choose tags:" />
-                                                <SplitMenuButton mnemonicParsing="false" text="tags">
-                                                    <items>
-                                                        <CheckMenuItem mnemonicParsing="false" text="Kosher" />
-                                                        <CheckMenuItem mnemonicParsing="false" text="Thiland" />
-                                                        <CheckMenuItem mnemonicParsing="false" text="Milky" />
-                                                        <CheckMenuItem mnemonicParsing="false" text="Meaty" />
-                                                    </items>
-                                                </SplitMenuButton>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="33.0" prefWidth="215.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="Owner Name:" />
-                                                <TextField prefHeight="23.0" prefWidth="121.0" promptText="name">
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin></TextField>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="Adress:" />
-                                                <TextField prefHeight="23.0" prefWidth="121.0" promptText="name">
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin></TextField>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="Phone number:" />
-                                                <TextField prefHeight="23.0" prefWidth="121.0" promptText="name">
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin></TextField>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="30.0" prefWidth="215.0">
-                                            <children>
-                                                <Label minWidth="90.0" prefWidth="90.0" text="Status:" />
-                                                <MenuButton mnemonicParsing="false">
-                                                    <items>
-                                                        <MenuItem mnemonicParsing="false" text="Aviable" />
-                                                        <MenuItem mnemonicParsing="false" text="Inaviable" />
-                                                    </items>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin>
-                                                </MenuButton>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="52.0" prefWidth="215.0">
-                                            <children>
-                                                <Button mnemonicParsing="false" text="Choose Location" />
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-                                <Button layoutX="95.0" layoutY="402.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="129.0" text="Save" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -221,19 +112,13 @@
                             <right>
                                 <VBox prefHeight="472.0" prefWidth="80.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                                     <children>
-                                        <VBox prefHeight="432.0" prefWidth="86.0">
-                                            <children>
-                                                <Label prefHeight="71.0" prefWidth="83.0" styleClass="smokingZone" />
-                                                <Label layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="83.0" styleClass="table" />
-                                                <Label layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="83.0" styleClass="barTable" />
-                                            </children>
-                                        </VBox>
+                                        <VBox fx:id="vbox_edit_menu" prefHeight="432.0" prefWidth="86.0" />
                                         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Save" />
                                     </children>
                                 </VBox>
                             </right>
                             <center>
-                                <GridPane alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
+                                <GridPane fx:id="modelEditTable" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

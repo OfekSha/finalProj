@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelController {
     public void testModel(){
@@ -47,7 +48,7 @@ public class ModelController {
             }
             return result;
     }
-    public void  setModel(int x , int y, ArrayList<Table> tables){
+    public void  setModel(int x , int y, List<Table> tables){
         modelTable.getColumnConstraints().clear();
         modelTable.getRowConstraints().clear();
         modelTable.getChildren().clear();

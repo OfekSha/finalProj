@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,39 +18,68 @@ public class TabMenuController implements Initializable {
 
     public ModelController modelController;
     @FXML
+    private HBox header;
+
+    @FXML
     private TabPane tabPane;
+    // options tab:
     @FXML
-    private GridPane modelTable;
-    @FXML
-    private Tab settings;
-
+    private Tab options;
 
     @FXML
-    private TableView tableView_permissions;
+    private TextField tf_name;
+
+    @FXML
+    private SplitMenuButton smbtn_tags;
+
+    @FXML
+    private TextField tf_owner;
+
+    @FXML
+    private TextField tf_country;
+
+    @FXML
+    private TextField tf_region;
+
+    @FXML
+    private TextField tf_adress;
+
+    @FXML
+    private TextField tf_phone;
+
+    @FXML
+    private MenuButton mb_status;
+    // permission tab:
     @FXML
     private Tab permissions;
 
     @FXML
+    private TableView tableView_permissions;
+
+    @FXML
+    private Button btn_permis_save;
+    // model editor tab:
+    @FXML
     private Tab modelEdit;
 
     @FXML
-    private Tab modelView;
+    private VBox vbox_edit_menu;
+
+    @FXML
+    private GridPane modelEditTable;
+    // model tab:
+    @FXML
+    private Tab model1;
+
+    @FXML
+    private GridPane modelTable;
 
     @FXML
     private Tab notifications;
 
     @FXML
     private Tab chat;
-    @FXML
-    private TableColumn tc_name;
-    @FXML
-    private TableColumn tc_password;
-    @FXML
-    private TableColumn tc_permission;
-    @FXML
-    private HBox header;
-    @FXML
-    private Button btn_permis_save;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showByPermission(Permission.Owner); // testing
@@ -64,7 +94,7 @@ public class TabMenuController implements Initializable {
                 tabs.remove(notifications);
                 tabs.remove(chat);
             case Hostess:
-                tabs.remove(settings);
+                tabs.remove(options);
             case Manager:
                 tabs.remove(permissions);
                 tabs.remove(modelEdit);

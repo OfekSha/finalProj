@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.DataHolder;
+import application.entities.Client;
 import application.entities.Restaurant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class LoginController {
@@ -38,7 +40,7 @@ public class LoginController {
         if (btn.equals(btn_login)) { // login button clicked.
             Optional<Restaurant> temp = DataHolder.restaurant.get(Long.parseLong(TF_id.getText()));
             temp.ifPresent(rest -> {
-                if (rest.getPassword().equals(TF_password.getText())) {
+                if (checkLogin(temp.get())) {
                     try {
                         Stage stage = (Stage) btn.getScene().getWindow();
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/fxml/tabMenu.fxml"));
@@ -61,5 +63,16 @@ public class LoginController {
 
         }
     }
-
+    private boolean checkLogin(Restaurant rest){ // check if user is correct and update the user for future use.
+        int input_id=Integer.valueOf(TF_id.getText());
+        if (input_id!=rest.getId()) return false;
+        HashSet<Client> employee = rest.getEmployee();
+        for (Client e :employee){
+            if (TF_password.getText().equals(e.getPassword()) &&  TF_name.getText().equals(e.getName())){
+                DataHolder.myUser=e;
+                return true;
+            }
+        }
+        return false;
+}
 }

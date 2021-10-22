@@ -77,7 +77,7 @@ public class AppTest extends ApplicationTest {
         clickOn(".name").type(getKeyCodes("asd"));
         clickOn(".password").type(getKeyCodes("sad"));
         clickOn("Login");
-        verifyThat("Settings",Node::isVisible);
+        verifyThat("Options",Node::isVisible);
 
     }
     @Test
