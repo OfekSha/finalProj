@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelController {
-    public void testModel(){
+    public void testModel(){ // @@TODO : move test method to test package.
         ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
         testTables.add(new Table(0,4,false,false,0,0));
         testTables.add(new Table(1,3,true,false,2,0));
@@ -38,8 +38,8 @@ public class ModelController {
     }
     private cellController getCellOfTable(Table table){
         cellController result = null;
-            ObservableList<Node> childrens = modelTable.getChildren();
-            for (Node node : childrens) {
+            ObservableList<Node> children = modelTable.getChildren();
+            for (Node node : children) {
                 if (!(node instanceof cellController))continue;
                 if(modelTable.getRowIndex(node) == table.getX() && modelTable.getColumnIndex(node) == table.getY()) {
                     result =(cellController) node;

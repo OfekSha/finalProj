@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitMenuButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
+<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
    <children>
       <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
          <children>
@@ -31,13 +25,13 @@
             <HBox prefHeight="30.0" prefWidth="282.0">
                <children>
                   <Label prefWidth="90.0" text="res Name:" />
-                  <TextField fx:id="TF_restName" prefWidth="140.0" promptText="BP" />
+                  <TextField id="tf_res_name" fx:id="TF_restName" prefWidth="140.0" promptText="BP" />
                </children>
             </HBox>
             <HBox prefHeight="26.0" prefWidth="282.0">
                <children>
                   <Label prefWidth="90.0" text="password" />
-                  <TextField fx:id="TF_password" prefWidth="140.0" promptText="*****" />
+                  <TextField id="tf_password" fx:id="TF_password" prefWidth="140.0" promptText="*****" />
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="215.0">
@@ -55,19 +49,19 @@
             <HBox prefHeight="33.0" prefWidth="215.0">
                <children>
                   <Label prefWidth="90.0" text="Owner Name:" />
-                  <TextField fx:id="TF_ownerName" prefHeight="23.0" prefWidth="140.0" promptText="name" />
+                  <TextField id="tf_owner_name" fx:id="TF_ownerName" prefHeight="23.0" prefWidth="140.0" promptText="name" />
                </children>
             </HBox>
             <HBox prefHeight="25.0" prefWidth="200.0">
                <children>
                   <Label prefWidth="90.0" text="Address:" />
-                  <TextField fx:id="TF_address" prefHeight="23.0" prefWidth="140.0" promptText="name" />
+                  <TextField id="tf_address" fx:id="TF_address" prefHeight="23.0" prefWidth="140.0" promptText="name" />
                </children>
             </HBox>
             <HBox prefHeight="35.0" prefWidth="215.0">
                <children>
                   <Label prefWidth="90.0" text="Phone number:" />
-                  <TextField fx:id="TF_phone" prefHeight="23.0" prefWidth="140.0" promptText="name" />
+                  <TextField id="tf_phone" fx:id="TF_phone" prefHeight="23.0" prefWidth="140.0" promptText="name" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="215.0">

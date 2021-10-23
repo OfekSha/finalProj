@@ -57,6 +57,9 @@ public class TabMenuController implements Initializable {
     private TableView tableView_permissions;
 
     @FXML
+    private HBox hbox_buttons;
+
+    @FXML
     private Button btn_permis_save;
     // model editor tab:
     @FXML
@@ -99,7 +102,7 @@ public class TabMenuController implements Initializable {
                 tabs.remove(permissions);
                 tabs.remove(modelEdit);
             case Owner:
-                PermissionsController pController=new PermissionsController(tableView_permissions);
+                PermissionsController pController=new PermissionsController(tableView_permissions,hbox_buttons);
                 break;
             default:
                 tabs.clear();

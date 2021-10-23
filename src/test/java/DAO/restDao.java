@@ -26,7 +26,7 @@ public class restDao implements DAO<Restaurant> {
         try {
             reader = Files.newBufferedReader(Paths.get("rest_test_data.json"));
             rest = gson.fromJson(reader,Restaurant.class);
-            if (rest.getId()!=id) rest=null;
+           // if (rest.getId()!=id) rest=null;
         } catch (IOException e) {
             rest=null;
             e.printStackTrace();
@@ -43,6 +43,9 @@ public class restDao implements DAO<Restaurant> {
     @Override
     public void save(Restaurant restaurant) {
         rest=restaurant;
+        if (rest!=null)
+            rest.setId(1);
+        /*
         Reader reader = null;
         if (rest.getId()==-1){ // create id is automate in the cloud.
             try {
@@ -53,7 +56,7 @@ public class restDao implements DAO<Restaurant> {
                 rest=null;
                 e.printStackTrace();
             }
-        }
+        }*/
         try {
             Writer writer = Files.newBufferedWriter(Paths.get("rest_test_data.json"));
             gson.toJson(rest,writer);

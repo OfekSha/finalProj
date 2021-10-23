@@ -1,6 +1,8 @@
 package application.controller;
 
 import application.DataHolder;
+import application.entities.Client;
+import application.entities.Permission;
 import application.entities.Restaurant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +46,7 @@ public class RegisterController {
         Button btn = (Button) event.getSource(); // get the button object.
         if (btn.equals(btn_register)){
             temp_rest= new Restaurant(TF_restName.getText(),TF_ownerName.getText(),TF_address.getText(),TF_phone.getText(),TF_password.getText(),null,null,-1);
+            temp_rest.getEmployee().add(new Client(TF_ownerName.getText(),TF_password.getText(), Permission.Owner));
             DataHolder.restaurant.save(temp_rest);
 
         }

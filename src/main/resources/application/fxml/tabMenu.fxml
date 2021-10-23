@@ -102,7 +102,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
                                 <TableView fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
-                                <Button fx:id="btn_permis_save" layoutX="89.0" layoutY="389.0" mnemonicParsing="false" text="Save" />
+                        <HBox fx:id="hbox_buttons" layoutX="75.0" layoutY="372.0" prefHeight="80.0" prefWidth="428.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>

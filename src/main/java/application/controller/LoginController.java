@@ -64,8 +64,6 @@ public class LoginController {
         }
     }
     private boolean checkLogin(Restaurant rest){ // check if user is correct and update the user for future use.
-        int input_id=Integer.valueOf(TF_id.getText());
-        if (input_id!=rest.getId()) return false;
         HashSet<Client> employee = rest.getEmployee();
         for (Client e :employee){
             if (TF_password.getText().equals(e.getPassword()) &&  TF_name.getText().equals(e.getName())){
