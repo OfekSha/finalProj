@@ -1,5 +1,6 @@
 package application.controller.tabs;
 
+import application.DataHolder;
 import application.entities.Table;
 import gui.controller.cellController;
 import javafx.collections.ObservableList;
@@ -10,33 +11,59 @@ import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ModelController {
-    public void testModel(){ // @@TODO : move test method to test package.
-        ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
-        testTables.add(new Table(0,4,false,false,0,0));
-        testTables.add(new Table(1,3,true,false,2,0));
-        testTables.add(new Table(2,5,true,true,2,1));
-        testTables.add(new Table(3,10,true,true,0,3));
-        testTables.add(new Table(4,2,false,true,4,4));
-        testTables.add(new Table(99,9,false,false,3,0));
-        setModel(10,10,testTables);
-    }
+
     //Tab modelTab;
     GridPane modelTable;
     public ModelController(GridPane modelTable){
         this.modelTable=modelTable;
+        List<Table> tables=new ArrayList<Table>();
+        AtomicInteger rows= new AtomicInteger();
+        AtomicInteger cols=new AtomicInteger();
+        DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant -> {
+            tables.addAll(restaurant.getTables());
+            cols.set(restaurant.getModel_height());
+            rows.set(restaurant.getModel_width());
+        });
+        setModel(rows.get(),cols.get(), tables);
+
     }
-    private cellController createCellOfTable(Table table){
-        if (table==null) return null;
-        cellController cell= new cellController();
-        cell.setSeats(""+table.getSeats());
-        cell.setTableNumber(""+table.getId());
+    public ArrayList<Table> getAllTables(){
+        ArrayList<Table> tables= new ArrayList<Table>();
+        for (Node node:modelTable.getChildren()){
+            if (node instanceof cellController){
+                cellController cell = (cellController) node;
+               if (!cell.isHide()){
+                   tables.add(new Table(Integer.parseInt(cell.getTableNumber()),Integer.parseInt(cell.getSeats()),cell.isSmoke(),true,cell.getX(),cell.getY()));
+               }
+            }
+        }
+        return tables;
+    }
+    public void setAllTablesAvailable(boolean on){ // TODO: update the tables in database. (DAO)
+        for (Node node:modelTable.getChildren()){
+            if (node instanceof cellController){
+                cellController cell = (cellController) node;
+                if (!cell.isHide()){
+                    cell.setIsAvailable(on);
+                }
+            }
+        }
+    }
+    public cellController createCellOfTable(Table table) {
+        if (table == null) {
+            return null;
+        }
+        cellController cell = new cellController(table.getX(), table.getY());
+        cell.setSeats("" + table.getSeats());
+        cell.setTableNumber("" + table.getId());
         cell.setIsSmoke(table.isSmoke());
         cell.setIsAvailable(table.isFree());
         return cell;
     }
-    private cellController getCellOfTable(Table table){
+    public cellController getCellOfTable(Table table){
         cellController result = null;
             ObservableList<Node> children = modelTable.getChildren();
             for (Node node : children) {
@@ -63,9 +90,20 @@ public class ModelController {
             rowConst.setPercentHeight(100.0 / x);
             modelTable.getRowConstraints().add(rowConst);
         }
+        cellController[][] cells=new cellController[x][y];
+        for (int i=0;i<x;i++){
+            for (int j=0;j<y;j++){
+                modelTable.add(cells[i][j] = new cellController(i,j),i,j);
+                cells[i][j].setHide(true);
+            }
+        }
         for (Table table:tables){
-            modelTable.add(createCellOfTable(table),table.getY(),table.getX());// if table == null throw exception
-
+            cellController cell = cells[table.getX()][table.getY()];
+            cell.setHide(false);
+            cell.setIsAvailable(table.isFree());
+            cell.setIsSmoke(table.isSmoke());
+            cell.setTableNumber(table.getId()+"");
+            cell.setSeats(table.getSeats()+"");
         }
     }
     public void setCell(int x , int y, Table table){

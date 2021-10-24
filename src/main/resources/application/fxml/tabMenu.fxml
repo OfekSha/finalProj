@@ -101,8 +101,8 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
-                        <HBox fx:id="hbox_buttons" layoutX="75.0" layoutY="372.0" prefHeight="80.0" prefWidth="428.0" />
+                                <TableView id="permission_table" fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
+                        <HBox id="permissions_buttons" fx:id="hbox_buttons" layoutX="75.0" layoutY="372.0" prefHeight="80.0" prefWidth="428.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -142,7 +142,7 @@
                         </BorderPane>
                     </content>
                 </Tab>
-                <Tab fx:id="model1" text="View Res">
+                <Tab fx:id="model1" text="Model">
                     <content>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                             <right>
@@ -186,7 +186,7 @@
                         </BorderPane>
                     </content>
                 </Tab>
-                <Tab fx:id="notifications" text="Notfications">
+                <Tab fx:id="notifications" text="Notifications">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>

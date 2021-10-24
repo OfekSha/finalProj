@@ -2,6 +2,7 @@ package DAO;
 
 import application.controller.dao.DAO;
 import application.entities.Restaurant;
+import application.entities.Table;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -9,12 +10,23 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class restDao implements DAO<Restaurant> {
     Restaurant rest;
     Gson gson;
+    public ArrayList<Table> testModel(){
+        ArrayList<Table> testTables = new ArrayList<Table>(); //@@@ test only!!!
+        testTables.add(new Table(0,4,false,false,0,0));
+        testTables.add(new Table(1,3,true,false,2,0));
+        testTables.add(new Table(2,5,true,true,2,1));
+        testTables.add(new Table(3,10,true,true,0,3));
+        testTables.add(new Table(4,2,false,true,4,4));
+        testTables.add(new Table(99,9,false,false,3,0));
+        return testTables;
+    }
     public restDao() {
         this.rest = null;
         gson= new Gson();
@@ -43,8 +55,12 @@ public class restDao implements DAO<Restaurant> {
     @Override
     public void save(Restaurant restaurant) {
         rest=restaurant;
-        if (rest!=null)
+        if (rest!=null) {
             rest.setId(1);
+            rest.setTables(testModel());
+            rest.setModel_height(10);
+            rest.setModel_width(10);
+        }
         /*
         Reader reader = null;
         if (rest.getId()==-1){ // create id is automate in the cloud.

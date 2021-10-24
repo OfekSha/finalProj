@@ -1,9 +1,12 @@
 import DAO.restDao;
 import application.DataHolder;
+import application.controller.tabs.PermissionsController;
+import application.entities.Permission;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
@@ -17,6 +20,13 @@ import java.nio.file.Paths;
 import static org.testfx.api.FxAssert.verifyThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AppTest extends ApplicationTest {
+private final int waitTime=2000;
+private final String modelViewTab="Model";
+private final String chatTab="Chat";
+private final String notificationTab="Notifications";
+private final String modelEditTab="Model Edit";
+private final String permissionTab="Permissions";
+private final String optionsTab="Options";
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = null;
@@ -53,6 +63,7 @@ public class AppTest extends ApplicationTest {
         clickOn("#tf_phone").type(getKeyCodes("0504444123"));
         clickOn("Register");
         Paths.get("client_test_data1.json");
+        sleep(waitTime);
 
     }
     @Test
@@ -64,8 +75,37 @@ public class AppTest extends ApplicationTest {
         clickOn(".password").type(getKeyCodes("pass"));
         clickOn("Login");
         clickOn("Permissions");
-        sleep(15000);
-        //clickOn("name").type(getKeyCodes("sad"));
+        sleep(waitTime);
+        clickOn(lookup("#permissions_buttons").lookup("add").queryButton());
+        clickOn(lookup("#permissions_buttons").lookup("add").queryButton());
+        clickOn(lookup("#permissions_buttons").lookup("add").queryButton());
+        clickOn(lookup("#permissions_buttons").lookup("add").queryButton());
+        clickOn(lookup("#permissions_buttons").lookup("add").queryButton());
+        TableView table = lookup("#permission_table").queryTableView();
+        PermissionsController.TableClientData data= (PermissionsController.TableClientData) table.getItems().get(1);
+        doubleClickOn(data.getName()).type(getKeyCodes("test")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPassword()).type(getKeyCodes("test2")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPermission()).clickOn(Permission.Hostess.name());
+        data= (PermissionsController.TableClientData) table.getItems().get(2);
+        doubleClickOn(data.getName()).type(getKeyCodes("test3")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPassword()).type(getKeyCodes("test4")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPermission()).clickOn(Permission.Waiter.name());
+        data= (PermissionsController.TableClientData) table.getItems().get(3);
+        doubleClickOn(data.getName()).type(getKeyCodes("test5")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPassword()).type(getKeyCodes("test6")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPermission()).clickOn(Permission.Manager.name());
+        data= (PermissionsController.TableClientData) table.getItems().get(4);
+        doubleClickOn(data.getName()).type(getKeyCodes("test7")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPassword()).type(getKeyCodes("test8")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPermission());
+        Node temp = lookup(Permission.Owner.name()).lookup(".list-cell").query();
+        clickOn(temp);
+        data= (PermissionsController.TableClientData) table.getItems().get(5);
+        doubleClickOn(data.getName()).type(getKeyCodes("test9")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPassword()).type(getKeyCodes("test10")).type(KeyCode.ENTER);
+        doubleClickOn(data.getPermission()).clickOn(Permission.User.name());
+        clickOn(lookup("#permissions_buttons").lookup("save").queryButton());
+        sleep(waitTime);
     }
     @Test
     @Order(4)
@@ -76,11 +116,92 @@ public class AppTest extends ApplicationTest {
         clickOn(".password").type(getKeyCodes("pass"));
         clickOn("Login");
         clickOn("Permissions");
-
-        sleep(15000);
-        //clickOn("name").type(getKeyCodes("sad"));
+        sleep(waitTime);
     }
+    @Test
+    @Order(5)
+    void testHostess() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("test"));
+        clickOn(".password").type(getKeyCodes("test2"));
+        clickOn("Login");
+        verifyThat(modelViewTab,Node::isVisible);
+        verifyThat(chatTab,Node::isVisible);
+        verifyThat(notificationTab,Node::isVisible);
+        Assertions.assertTrue(lookup(modelEditTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(optionsTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(permissionTab).tryQuery().isEmpty());
+        sleep(waitTime);
 
+    }
+    @Test
+    @Order(5)
+    void testWaiter() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("test3"));
+        clickOn(".password").type(getKeyCodes("test4"));
+        clickOn("Login");
+        verifyThat(modelViewTab,Node::isVisible);
+        Assertions.assertTrue(lookup(modelEditTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(optionsTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(permissionTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(chatTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(notificationTab).tryQuery().isEmpty());
+        sleep(waitTime);
+    }
+    @Test
+    @Order(5)
+    void testManager() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("test5"));
+        clickOn(".password").type(getKeyCodes("test6"));
+        clickOn("Login");
+        verifyThat(modelViewTab,Node::isVisible);
+        verifyThat(chatTab,Node::isVisible);
+        verifyThat(optionsTab,Node::isVisible);
+        verifyThat(notificationTab,Node::isVisible);
+        Assertions.assertTrue(lookup(modelEditTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(permissionTab).tryQuery().isEmpty());
+        sleep(waitTime);
+    }
+    @Test
+    @Order(5)
+    void testUser() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("test9"));
+        clickOn(".password").type(getKeyCodes("test10"));
+        clickOn("Login");
+        Assertions.assertTrue(lookup(modelEditTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(permissionTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(modelViewTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(chatTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(optionsTab).tryQuery().isEmpty());
+        Assertions.assertTrue(lookup(notificationTab).tryQuery().isEmpty());
+        sleep(waitTime);
+    }
+    @Test
+    @Order(5)
+    void testOwner() throws InterruptedException {
+
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("test7"));
+        clickOn(".password").type(getKeyCodes("test8"));
+        clickOn("Login");
+        sleep(waitTime);
+        verifyThat(modelViewTab,Node::isVisible);
+        verifyThat(chatTab,Node::isVisible);
+        verifyThat(notificationTab,Node::isVisible);
+        verifyThat(optionsTab,Node::isVisible);
+        verifyThat(modelEditTab,Node::isVisible);
+        verifyThat(permissionTab,Node::isVisible);
+
+
+    }
     @Test
     @Order(2)
     void testLogin() throws InterruptedException {
@@ -90,8 +211,12 @@ public class AppTest extends ApplicationTest {
         clickOn(".name").type(getKeyCodes("ofek"));
         clickOn(".password").type(getKeyCodes("pass"));
         clickOn("Login");
-        sleep(15000);
-        verifyThat("Options",Node::isVisible);
+        verifyThat(modelViewTab,Node::isVisible);
+        verifyThat(chatTab,Node::isVisible);
+        verifyThat(notificationTab,Node::isVisible);
+        verifyThat(optionsTab,Node::isVisible);
+        verifyThat(modelEditTab,Node::isVisible);
+        verifyThat(permissionTab,Node::isVisible);
 
 
     }

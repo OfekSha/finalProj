@@ -21,6 +21,10 @@
 .red{
 -fx-effect: innershadow(gaussian  ,red,5,50,0,0);
 }
+.selected{
+-fx-border-color: blue;
+-fx-border-width:2px;
+}
 .smoke_zone{
 -fx-alignment: center;
 -fx-background-repeat: no-repeat;

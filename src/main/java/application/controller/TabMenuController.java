@@ -1,6 +1,8 @@
 package application.controller;
 
+import application.DataHolder;
 import application.controller.tabs.ModelController;
+import application.controller.tabs.ModelEditorController;
 import application.controller.tabs.PermissionsController;
 import application.entities.Permission;
 import javafx.collections.ObservableList;
@@ -85,15 +87,13 @@ public class TabMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showByPermission(Permission.Owner); // testing
+        showByPermission(DataHolder.myUser.getPermission());
 
     }
     private void showByPermission(Permission p){
         ObservableList<Tab> tabs = tabPane.getTabs();
         switch (p) {
             case Waiter:
-                modelController=new ModelController(modelTable);
-                modelController.testModel(); // @@TODO: need to delete it and move to test.
                 tabs.remove(notifications);
                 tabs.remove(chat);
             case Hostess:
@@ -102,6 +102,8 @@ public class TabMenuController implements Initializable {
                 tabs.remove(permissions);
                 tabs.remove(modelEdit);
             case Owner:
+                modelController=new ModelController(modelTable);
+                new ModelEditorController(vbox_edit_menu,modelEditTable);
                 PermissionsController pController=new PermissionsController(tableView_permissions,hbox_buttons);
                 break;
             default:

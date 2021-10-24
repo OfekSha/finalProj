@@ -63,6 +63,17 @@ public class PermissionsController {
             this.permission.set(permission);
         }
 
+        public SimpleStringProperty nameProperty() {
+            return name;
+        }
+
+        public SimpleStringProperty passwordProperty() {
+            return password;
+        }
+
+        public SimpleStringProperty permissionProperty() {
+            return permission;
+        }
     }
     TableView<TableClientData> tableView;
     HBox hbox_buttons;
