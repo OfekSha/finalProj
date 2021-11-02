@@ -2,78 +2,61 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
+
+<VBox alignment="CENTER" prefHeight="281.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
    <children>
-      <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
+      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="282.0">
          <children>
-            <Label text="Find My Restaurant ">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
+            <Label prefWidth="90.0" text="res Name:" />
+            <TextField id="tf_res_name" fx:id="TF_restName" prefWidth="140.0" promptText="BP" />
          </children>
       </HBox>
-      <HBox layoutX="548.0" layoutY="562.0" prefHeight="38.0" prefWidth="52.0">
+      <HBox alignment="CENTER" prefHeight="26.0" prefWidth="282.0">
          <children>
-            <Button mnemonicParsing="false" text="Exit" />
+            <Label prefWidth="90.0" text="password" />
+            <TextField id="tf_password" fx:id="TF_password" prefWidth="140.0" promptText="*****" />
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="193.0" layoutY="160.0" prefHeight="281.0" prefWidth="215.0">
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="215.0">
          <children>
-            <HBox prefHeight="30.0" prefWidth="282.0">
-               <children>
-                  <Label prefWidth="90.0" text="res Name:" />
-                  <TextField id="tf_res_name" fx:id="TF_restName" prefWidth="140.0" promptText="BP" />
-               </children>
-            </HBox>
-            <HBox prefHeight="26.0" prefWidth="282.0">
-               <children>
-                  <Label prefWidth="90.0" text="password" />
-                  <TextField id="tf_password" fx:id="TF_password" prefWidth="140.0" promptText="*****" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="215.0">
-               <children>
-                  <SplitMenuButton fx:id="SMBtn_tags" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" prefHeight="25.0" prefWidth="132.0" text="tags">
-                     <items>
-                        <CheckMenuItem mnemonicParsing="false" text="Kosher" />
-                        <CheckMenuItem mnemonicParsing="false" text="Thiland" />
-                        <CheckMenuItem mnemonicParsing="false" text="Milky" />
-                        <CheckMenuItem mnemonicParsing="false" text="Meaty" />
-                     </items>
-                  </SplitMenuButton>
-               </children>
-            </HBox>
-            <HBox prefHeight="33.0" prefWidth="215.0">
-               <children>
-                  <Label prefWidth="90.0" text="Owner Name:" />
-                  <TextField id="tf_owner_name" fx:id="TF_ownerName" prefHeight="23.0" prefWidth="140.0" promptText="name" />
-               </children>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0">
-               <children>
-                  <Label prefWidth="90.0" text="Address:" />
-                  <TextField id="tf_address" fx:id="TF_address" prefHeight="23.0" prefWidth="140.0" promptText="name" />
-               </children>
-            </HBox>
-            <HBox prefHeight="35.0" prefWidth="215.0">
-               <children>
-                  <Label prefWidth="90.0" text="Phone number:" />
-                  <TextField id="tf_phone" fx:id="TF_phone" prefHeight="23.0" prefWidth="140.0" promptText="name" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="215.0">
-               <children>
-                  <Button fx:id="btn_location" mnemonicParsing="false" onAction="#btn_clicked" prefHeight="32.0" prefWidth="161.0" text="Choose Location">
-                     <font>
-                        <Font size="1.0" />
-                     </font></Button>
-               </children>
-            </HBox>
+            <SplitMenuButton fx:id="SMBtn_tags" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" prefHeight="25.0" prefWidth="132.0" text="tags">
+               <items>
+                  <CheckMenuItem mnemonicParsing="false" text="Kosher" />
+                  <CheckMenuItem mnemonicParsing="false" text="Thiland" />
+                  <CheckMenuItem mnemonicParsing="false" text="Milky" />
+                  <CheckMenuItem mnemonicParsing="false" text="Meaty" />
+               </items>
+            </SplitMenuButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="33.0" prefWidth="215.0">
+         <children>
+            <Label prefWidth="90.0" text="Owner Name:" />
+            <TextField id="tf_owner_name" fx:id="TF_ownerName" prefHeight="23.0" prefWidth="140.0" promptText="name" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
+         <children>
+            <Label prefWidth="90.0" text="Address:" />
+            <TextField id="tf_address" fx:id="TF_address" prefHeight="23.0" prefWidth="140.0" promptText="name" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="215.0">
+         <children>
+            <Label prefWidth="90.0" text="Phone number:" />
+            <TextField id="tf_phone" fx:id="TF_phone" prefHeight="23.0" prefWidth="140.0" promptText="name" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="48.0" prefWidth="215.0">
+         <children>
+            <Button fx:id="btn_location" mnemonicParsing="false" onAction="#btn_clicked" prefHeight="32.0" prefWidth="161.0" text="Choose Location" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
             <Button fx:id="btn_register" mnemonicParsing="false" onAction="#btn_clicked" text="Register" />
          </children>
-      </VBox>
+      </HBox>
    </children>
-</Pane>
+</VBox>

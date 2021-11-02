@@ -8,12 +8,15 @@
         url("../photos/table.png");
 }
 .chair{
--fx-alignment: center;
--fx-background-repeat: no-repeat;
- -fx-background-position: right;
+ -fx-background-repeat: no-repeat;
+ -fx-background-position: center;
  -fx-background-size: contain;
     -fx-background-image:
         url("../photos/chair.png");
+}
+.chair .text{
+ -fx-effect: dropshadow(gaussian  ,blue,1,1,0,0);
+
 }
 .green{
 -fx-effect: innershadow(gaussian  ,green,5,50,0,0);

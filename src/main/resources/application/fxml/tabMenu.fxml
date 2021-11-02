@@ -2,225 +2,210 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TabMenuController">
-    <children>
-        <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
-            <children>
-                <Label text="Find My Restuaraunt ">
-                    <font>
-                        <Font size="36.0" />
-                    </font>
-                </Label>
-            </children>
-        </HBox>
-        <TabPane fx:id="tabPane" layoutY="63.0" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab fx:id="options" text="Options">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <VBox alignment="TOP_CENTER" layoutX="95.0" layoutY="134.0" prefHeight="237.0" prefWidth="215.0">
-                                    <children>
-                                        <Button mnemonicParsing="false" text="Open Res" />
-                                        <Button mnemonicParsing="false" text="Close Res" />
-                                    </children>
-                                </VBox>
-                                <VBox alignment="TOP_CENTER" layoutX="338.0" layoutY="75.0" prefHeight="281.0" prefWidth="215.0">
-                                    <children>
-                                        <HBox prefHeight="30.0" prefWidth="282.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="res Name:" />
-                                                <TextField fx:id="tf_name" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" />
-                                            </children>
-                                        </HBox>
-                                        <HBox>
-                                            <children>
-                                                <Label prefWidth="90.0" text="Choose tags:" />
-                                                <SplitMenuButton fx:id="smbtn_tags" mnemonicParsing="false" text="tags">
-                                                    <items>
-                                                        <CheckMenuItem mnemonicParsing="false" text="Kosher" />
-                                                        <CheckMenuItem mnemonicParsing="false" text="Thiland" />
-                                                        <CheckMenuItem mnemonicParsing="false" text="Milky" />
-                                                        <CheckMenuItem mnemonicParsing="false" text="Meaty" />
-                                                    </items>
-                                                </SplitMenuButton>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="28.0" prefWidth="215.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="Owner Name:" />
-                                                <TextField fx:id="tf_owner" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="Country" />
-                                                <TextField fx:id="tf_country" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="Region:" />
-                                                <TextField fx:id="tf_region" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="Adress:" />
-                                                <TextField fx:id="tf_adress" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="Phone number:" />
-                                                <TextField fx:id="tf_phone" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="30.0" prefWidth="215.0">
-                                            <children>
-                                                <Label prefWidth="90.0" text="Status:" />
-                                                <MenuButton fx:id="mb_status" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable">
-                                                    <items>
-                                                        <MenuItem mnemonicParsing="false" text="Aviable" />
-                                                        <MenuItem mnemonicParsing="false" text="Inaviable" />
-                                                    </items>
-                                                </MenuButton>
-                                            </children>
-                                        </HBox>
-                              <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="232.0" text="Choose location" />
-                              <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="227.0" text="Save" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="permissions" text="Permissions">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView id="permission_table" fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
-                        <HBox id="permissions_buttons" fx:id="hbox_buttons" layoutX="75.0" layoutY="372.0" prefHeight="80.0" prefWidth="428.0" />
-                            </children></AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="modelEdit" text="Model Edit">
-                    <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                            <right>
-                                <VBox prefHeight="472.0" prefWidth="80.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <VBox fx:id="vbox_edit_menu" prefHeight="432.0" prefWidth="86.0" />
-                                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Save" />
-                                    </children>
-                                </VBox>
-                            </right>
-                            <center>
-                                <GridPane fx:id="modelEditTable" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                </GridPane>
-                            </center>
-                        </BorderPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="model1" text="Model">
-                    <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                            <right>
-                                <VBox prefHeight="472.0" prefWidth="90.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <HBox prefHeight="457.0" prefWidth="90.0">
-                                            <children>
-                                                <MenuButton mnemonicParsing="false" prefHeight="22.0" prefWidth="89.0" text="Time">
-                                                    <items>
-                                                        <MenuItem mnemonicParsing="false" text="08:00" />
-                                                        <MenuItem mnemonicParsing="false" text="10:00" />
-                                                    </items>
-                                                </MenuButton>
-                                            </children>
-                                        </HBox>
-                                        <Button mnemonicParsing="false" text="Refresh" />
-                                    </children></VBox>
-                            </right>
-                            <center>
-                                <GridPane fx:id="modelTable" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                </GridPane>
-                            </center>
-                        </BorderPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="notifications" text="Notifications">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TextArea prefHeight="238.0" prefWidth="381.0" text="- line 1&#10;- line 2&#10;- line 3&#10;- line 4" />
-                                <Button layoutX="34.0" layoutY="251.0" mnemonicParsing="false" text="Clear" />
-                                <Button layoutX="117.0" layoutY="251.0" mnemonicParsing="false" text="Save" />
-                            </children></AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="chat" text="Chat">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TextArea prefHeight="238.0" prefWidth="381.0" text="Client 1: &quot;hello&quot;&#10;Client 2: &quot;blabla&quot;&#10;me: &quot;please wait 5 min...&quot;&#10;" />
-                                <VBox layoutY="238.0" prefHeight="63.0" prefWidth="382.0">
-                                    <children>
-                                        <HBox prefHeight="39.0" prefWidth="271.0">
-                                            <children>
-                                                <TextField prefHeight="25.0" prefWidth="249.0" />
-                                                <Button mnemonicParsing="false" text="Send" />
-                                                <Button mnemonicParsing="false" text="Clear" />
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-                            </children></AnchorPane>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
-        <HBox layoutX="548.0" layoutY="567.0" prefHeight="38.0" prefWidth="52.0">
-            <children>
-                <Button mnemonicParsing="false" text="Exit" />
-            </children>
-        </HBox>
-    </children>
-</Pane>
+<TabPane fx:id="tabPane" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TabMenuController">
+      <tabs>
+          <Tab fx:id="options" text="Options">
+              <content>
+            <HBox alignment="CENTER">
+               <children>
+                          <VBox alignment="CENTER">
+                              <children>
+                                  <Button mnemonicParsing="false" text="Open Res" />
+                                  <Button mnemonicParsing="false" text="Close Res" />
+                              </children>
+                          </VBox>
+                          <VBox alignment="CENTER">
+                              <children>
+                                  <HBox prefHeight="30.0" prefWidth="282.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="res Name:" />
+                                          <TextField fx:id="tf_name" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" />
+                                      </children>
+                                  </HBox>
+                                  <HBox>
+                                      <children>
+                                          <Label prefWidth="90.0" text="Choose tags:" />
+                                          <SplitMenuButton fx:id="smbtn_tags" mnemonicParsing="false" text="tags">
+                                              <items>
+                                                  <CheckMenuItem mnemonicParsing="false" text="Kosher" />
+                                                  <CheckMenuItem mnemonicParsing="false" text="Thiland" />
+                                                  <CheckMenuItem mnemonicParsing="false" text="Milky" />
+                                                  <CheckMenuItem mnemonicParsing="false" text="Meaty" />
+                                              </items>
+                                          </SplitMenuButton>
+                                      </children>
+                                  </HBox>
+                                  <HBox prefHeight="28.0" prefWidth="215.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="Owner Name:" />
+                                          <TextField fx:id="tf_owner" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                      </children>
+                                  </HBox>
+                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="Country" />
+                                          <TextField fx:id="tf_country" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                      </children>
+                                  </HBox>
+                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="Region:" />
+                                          <TextField fx:id="tf_region" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                      </children>
+                                  </HBox>
+                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="Adress:" />
+                                          <TextField fx:id="tf_adress" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                      </children>
+                                  </HBox>
+                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="Phone number:" />
+                                          <TextField fx:id="tf_phone" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                      </children>
+                                  </HBox>
+                                  <HBox prefHeight="30.0" prefWidth="215.0">
+                                      <children>
+                                          <Label prefWidth="90.0" text="Status:" />
+                                          <MenuButton fx:id="mb_status" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable">
+                                              <items>
+                                                  <MenuItem mnemonicParsing="false" text="Aviable" />
+                                                  <MenuItem mnemonicParsing="false" text="Inaviable" />
+                                              </items>
+                                          </MenuButton>
+                                      </children>
+                                  </HBox>
+                        <Button mnemonicParsing="false" text="Choose location" />
+                        <Button mnemonicParsing="false" text="Save" />
+                              </children>
+                          </VBox>
+               </children>
+            </HBox>
+              </content>
+          </Tab>
+          <Tab fx:id="permissions" text="Permissions">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <TableView id="permission_table" fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
+                  <HBox id="permissions_buttons" fx:id="hbox_buttons" layoutX="75.0" layoutY="372.0" prefHeight="80.0" prefWidth="428.0" />
+                      </children>
+            </AnchorPane>
+              </content>
+          </Tab>
+          <Tab fx:id="modelEdit" text="Model Edit">
+              <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                      <right>
+                          <VBox prefHeight="472.0" prefWidth="80.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                              <children>
+                                  <VBox id="vbox_edit_menu" fx:id="vbox_edit_menu" prefHeight="432.0" prefWidth="86.0" />
+                                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Save" />
+                              </children>
+                          </VBox>
+                      </right>
+                      <center>
+                          <GridPane id="gridPane_model_editor" fx:id="modelEditTable" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
+                              <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                          </GridPane>
+                      </center>
+                  </BorderPane>
+              </content>
+          </Tab>
+          <Tab fx:id="model1" text="Model">
+              <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                      <right>
+                          <VBox prefHeight="472.0" prefWidth="90.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                              <children>
+                                  <HBox prefHeight="457.0" prefWidth="90.0">
+                                      <children>
+                                          <MenuButton mnemonicParsing="false" prefHeight="22.0" prefWidth="89.0" text="Time">
+                                              <items>
+                                                  <MenuItem mnemonicParsing="false" text="08:00" />
+                                                  <MenuItem mnemonicParsing="false" text="10:00" />
+                                              </items>
+                                          </MenuButton>
+                                      </children>
+                                  </HBox>
+                                  <Button mnemonicParsing="false" text="Refresh" />
+                              </children>
+                  </VBox>
+                      </right>
+                      <center>
+                          <GridPane fx:id="modelTable" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
+                              <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                          </GridPane>
+                      </center>
+                  </BorderPane>
+              </content>
+          </Tab>
+          <Tab fx:id="notifications" text="Notifications">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <TextArea prefHeight="238.0" prefWidth="381.0" text="- line 1&#10;- line 2&#10;- line 3&#10;- line 4" />
+                          <Button layoutX="34.0" layoutY="251.0" mnemonicParsing="false" text="Clear" />
+                          <Button layoutX="117.0" layoutY="251.0" mnemonicParsing="false" text="Save" />
+                      </children>
+            </AnchorPane>
+              </content>
+          </Tab>
+          <Tab fx:id="chat" text="Chat">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <TextArea prefHeight="238.0" prefWidth="381.0" text="Client 1: &quot;hello&quot;&#10;Client 2: &quot;blabla&quot;&#10;me: &quot;please wait 5 min...&quot;&#10;" />
+                          <VBox layoutY="238.0" prefHeight="63.0" prefWidth="382.0">
+                              <children>
+                                  <HBox prefHeight="39.0" prefWidth="271.0">
+                                      <children>
+                                          <TextField prefHeight="25.0" prefWidth="249.0" />
+                                          <Button mnemonicParsing="false" text="Send" />
+                                          <Button mnemonicParsing="false" text="Clear" />
+                                      </children>
+                                  </HBox>
+                              </children>
+                          </VBox>
+                      </children>
+            </AnchorPane>
+              </content>
+          </Tab>
+      </tabs>
+  </TabPane>

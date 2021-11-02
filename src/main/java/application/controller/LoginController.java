@@ -5,14 +5,11 @@ import application.entities.Client;
 import application.entities.Restaurant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -42,12 +39,9 @@ public class LoginController {
             temp.ifPresent(rest -> {
                 if (checkLogin(temp.get())) {
                     try {
-                        Stage stage = (Stage) btn.getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/fxml/tabMenu.fxml"));
-                        Scene scene = new Scene(loader.load());
-                        stage.setScene(scene);
-                    } catch (IOException io) {
-                        io.printStackTrace();
+                        BaseFrameController.instance.changeFrame("application/fxml/tabMenu.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
                 else{
@@ -55,7 +49,6 @@ public class LoginController {
                     alert.setTitle("Wrong input");
                     alert.setHeaderText("Wrong password or restaurant id");
                     alert.setContentText("Please try again.");
-
                     alert.showAndWait();
                 }
 

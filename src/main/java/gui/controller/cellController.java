@@ -50,7 +50,7 @@ public class cellController extends VBox {
 
     public void setHide(boolean hide) {
         this.hide = hide;
-        smoke.setVisible(!hide);
+        smoke.setVisible(!hide && isSmoke.get());
         seats.setVisible(!hide);
         table.setVisible(!hide);
     }
@@ -70,11 +70,13 @@ public class cellController extends VBox {
     }
 
     public String getSeats() {
-        return seatsProperty().get().split("\n")[1];
+        //return seatsProperty().get().split("\n")[1];
+        return seatsProperty().get();
     }
 
     public void setSeats(String value) {
-        seatsProperty().set("seats:\n"+value);
+       // seatsProperty().set("seats:\n"+value);
+        seatsProperty().set(""+value);
         setFontSize();
     }
     public StringProperty seatsProperty() {
@@ -136,12 +138,12 @@ public class cellController extends VBox {
         try {
             fxmlLoader.load();
             isSmoke=new SimpleBooleanProperty(false);
+            smoke.setText("");
             smoke.setVisible(false);
             isAvailable=new SimpleBooleanProperty(false);
-            smoke.setText("");
             setSeats("0");
             setTableNumber("0");
-            setFontSize();
+            //setFontSize();
             setOnMouseClicked(event -> {
                 if (selectedCell!=null){
                     selectedCell.getStyleClass().remove("selected");

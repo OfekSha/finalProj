@@ -2,29 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EntranceController">
+
+<HBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EntranceController">
    <children>
-      <HBox alignment="CENTER" layoutX="174.0" layoutY="268.0" prefHeight="65.0" prefWidth="252.0" spacing="10.0">
-         <children>
-            <Button fx:id="btn_login" mnemonicParsing="false" onAction="#btnClicked" text="LogIn" />
-            <Button fx:id="btn_register" mnemonicParsing="false" onAction="#btnClicked" text="Register" />
-         </children>
-      </HBox>
-      <HBox fx:id="header" alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" styleClass="header">
-         <children>
-            <Label text="Find My Restaurant ">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="548.0" layoutY="562.0" prefHeight="38.0" prefWidth="52.0">
-         <children>
-            <Button mnemonicParsing="false" text="Exit" />
-         </children>
-      </HBox>
+      <Button fx:id="btn_login" mnemonicParsing="false" onAction="#btnClicked" text="LogIn" />
+      <Button fx:id="btn_register" alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#btnClicked" text="Register" />
    </children>
-</Pane>
+</HBox>

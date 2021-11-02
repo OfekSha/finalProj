@@ -2,9 +2,7 @@ package application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -27,18 +25,20 @@ public class EntranceController implements Initializable {
     void btnClicked(ActionEvent event) {
         Button btn = (Button) event.getSource(); // get the button object.
         Stage stage = (Stage) btn.getScene().getWindow(); // get the stage of the button.
-        FXMLLoader loader = null;
+
+        String fxml = null;
         if (btn.equals(btn_login)) { // login button clicked.
-            loader = new FXMLLoader(getClass().getClassLoader().getResource("application/fxml/Login.fxml"));
+
+            fxml="application/fxml/Login.fxml";
         }
         else if (btn.equals(btn_register)) {// register button clicked.
             URL url;
-            loader = new FXMLLoader(getClass().getClassLoader().getResource("application/fxml/Register.fxml"));
+            fxml="application/fxml/Register.fxml";
+
         }
-        else if (loader==null) return; // button not exist.
+        else if (fxml==null) return; // button not exist.
         try { // change the scene by loading from fxml file.
-            Scene scene = new Scene(loader.load());
-            stage.setScene(scene);
+            BaseFrameController.instance.changeFrame(fxml);
         } catch (IOException io) {
             io.printStackTrace();
         }

@@ -29,6 +29,7 @@ public class ModelEditorController {
             @Override
             public void handle(ActionEvent event) {
                 DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant -> {
+                    restaurant.getTables().clear();
                     restaurant.getTables().addAll(modelGrid.getAllTables());
                     DataHolder.restaurant.update(restaurant,null);
                 });

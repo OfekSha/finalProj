@@ -6,9 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.*;
 import org.testfx.api.FxToolkit;
@@ -16,8 +19,11 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.testfx.api.FxAssert.verifyThat;
+@Disabled
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AppTest extends ApplicationTest {
 private final int waitTime=2000;
@@ -32,8 +38,11 @@ private final String optionsTab="Options";
         Parent root = null;
         root = FXMLLoader.load(getClass().getResource("/application/fxml/entrance.fxml"));
         Scene scene = new Scene(root, 1000, 1000);
+
         stage.setScene(scene);
         stage.show();
+        stage.setMaximized(true);
+        stage.setFullScreen(true);
     }
     @BeforeEach
     public void setUpClass() throws Exception {
@@ -117,6 +126,39 @@ private final String optionsTab="Options";
         clickOn("Login");
         clickOn("Permissions");
         sleep(waitTime);
+    }
+    @Test
+    @Order(3)
+    void testEditModel() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("ofek"));
+        clickOn(".password").type(getKeyCodes("pass"));
+        clickOn("Login");
+        clickOn(modelEditTab);
+        GridPane model=lookup("#gridPane_model_editor").queryAs(GridPane.class);
+        clickOn(model.getChildren().get(0));
+        clickOn(lookup("#vbox_edit_menu").lookup("add").queryButton()).clickOn("edit");
+        Set<TextField> inputs = lookup(".dialog-pane").lookup(".text-field").queryAllAs(TextField.class);
+        Iterator<TextField> it = inputs.iterator();
+       while(it.hasNext()){
+           clickOn(it.next()).type(KeyCode.DIGIT1);
+       }
+        clickOn(lookup(".dialog-pane").lookup(ButtonType.OK.getText()).queryButton());
+        clickOn(lookup("#vbox_edit_menu").lookup("save").queryButton());
+        sleep(waitTime);
+
+    }
+    @Order(4)
+    void testEditModelAfterExit() throws InterruptedException {
+        clickOn("LogIn");
+        clickOn(".id").type(KeyCode.DIGIT1);
+        clickOn(".name").type(getKeyCodes("ofek"));
+        clickOn(".password").type(getKeyCodes("pass"));
+        clickOn("Login");
+        clickOn(modelEditTab);
+        sleep(waitTime);
+
     }
     @Test
     @Order(5)

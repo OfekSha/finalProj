@@ -19,8 +19,11 @@ public class App extends Application {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("fxml/entrance.fxml"));
-            Scene scene = new Scene(root, 1000, 1000);
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setMaximized(true);
+            primaryStage.setFullScreen(true);
+
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

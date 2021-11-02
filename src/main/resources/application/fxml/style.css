@@ -1,27 +1,50 @@
 .root{
 	-fx-pref-width:600px;
 	-fx-pref-height:600px;
-	-fx-background-color: #74b9fadf;
+	-fx-background-color: #103667;
 	-fx-background-radius: 5px;
 
 }
+.text{
+-fx-fill:#94aad6
+}
 .text-area .content{
-	-fx-background-color: #2b98ffdf;
+	-fx-background-color: #205aa7;
+}
+.text-field{
+-fx-background-color: #205aa7;
+}
+
+.tab{
+-fx-background-color: #205aa7;
+}
+.tab .text{
+-fx-fill:black;
+}
+.tab-pane .tab-header-area .tab-header-background{
+-fx-background-color: #184680;
+
+}
+.tab:hover{
+-fx-background-color: #426eb4;
+}
+.tab:selected{
+-fx-background-color: #94aad6;
 }
 .header {
 	-fx-alignment: center;
-	-fx-background-color: #0000ff93;
+	-fx-background-color: #103667;
 	-fx-background-radius: 10px;
 	-fx-padding:5px ;
 	-fx-pref-width:600px;
 	-fx-pref-height:50px;
-	-fx-effect: dropshadow(gaussian ,#0000ff93,15,0.6,5px,5px);
+	-fx-effect: dropshadow(gaussian ,#1b4f93,15,0.6,5px,5px);
 
 }
 .header .label{
 	-fx-font-size:36px;
 	-fx-text-fill:black;
-	-fx-effect: dropshadow(gaussian ,white,1,1,0px,0px);
+	-fx-effect: dropshadow(gaussian ,#426eb4,1,1,0px,0px);
 }
 .button{
 	-fx-background-color:#00ced1, #018486;
