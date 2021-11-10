@@ -10,5 +10,6 @@ public class DataHolder {
     public static DAO<Client> clients=null;
     public static DAO<Table> tables=null;
     public static Client myUser=null;
-    public static int rest_id=0;
+    public static String rest_id="0";
+    public static Restaurant tempRest=null;
 }

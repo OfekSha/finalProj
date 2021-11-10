@@ -33,7 +33,7 @@ public class restDao implements DAO<Restaurant> {
     }
 
     @Override
-    public Optional<Restaurant> get(long id) {
+    public Optional<Restaurant> get(String id) {
         Reader reader = null;
         try {
             reader = Files.newBufferedReader(Paths.get("rest_test_data.json"));
@@ -56,7 +56,7 @@ public class restDao implements DAO<Restaurant> {
     public void save(Restaurant restaurant) {
         rest=restaurant;
         if (rest!=null) {
-            rest.setId(1);
+            rest.setId("1");
             rest.setTables(testModel());
             rest.setModel_height(10);
             rest.setModel_width(10);

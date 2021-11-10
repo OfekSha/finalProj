@@ -35,7 +35,7 @@ public class LoginController {
     void btnClicked(ActionEvent event) {
         Button btn = (Button) event.getSource(); // get the button object.
         if (btn.equals(btn_login)) { // login button clicked.
-            Optional<Restaurant> temp = DataHolder.restaurant.get(Long.parseLong(TF_id.getText()));
+            Optional<Restaurant> temp = DataHolder.restaurant.get(TF_id.getText());
             temp.ifPresent(rest -> {
                 if (checkLogin(temp.get())) {
                     try {

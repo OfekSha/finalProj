@@ -14,7 +14,7 @@
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/buildOutputCleanup.lock
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/javaCompile.lock
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/classAnalysis.bin
-/build/classes/java/main/tests/FireStoreConnection.class
+/build/classes/java/main/tests/application.controller.FireStoreConnection.class
 /.gradle/6.7/executionHistory/executionHistory.bin
 /build/classes/java/main/application/controller/RegisterController.class
 /.gradle/vcs-1/gc.properties
@@ -53,7 +53,7 @@
 /build/scripts/finalProj.bat
 /.gradle/buildOutputCleanup/cache.properties
 /.idea/vcs.xml
-/build/classes/java/main/tests/FireStoreConnection$2.class
+/build/classes/java/main/tests/application.controller.FireStoreConnection$2.class
 /build/resources/main/application/fxml/hostessMenu.fxml
 /build/classes/java/main/application/entities/Permission.class
 /.gradle/6.7/fileHashes/fileHashes.lock
@@ -85,7 +85,7 @@
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/shelved.patch
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/fileHashes.bin
 /build/classes/java/main/application/Location.class
-/build/classes/java/main/tests/FireStoreConnection$1.class
+/build/classes/java/main/tests/application.controller.FireStoreConnection$1.class
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/buildOutputCleanup.lock
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/checksums.lock
 /.idea/shelf/Uncommitted_changes_before_Update_at_10_9_2021_9_00_AM_[Default_Changelist]/classAnalysis.bin

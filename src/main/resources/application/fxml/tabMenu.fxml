@@ -9,24 +9,24 @@
               <content>
             <HBox alignment="CENTER">
                <children>
-                          <VBox alignment="CENTER">
+                          <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                               <children>
                                   <Button mnemonicParsing="false" text="Open Res" />
                                   <Button mnemonicParsing="false" text="Close Res" />
                               </children>
                           </VBox>
-                          <VBox alignment="CENTER">
+                          <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                               <children>
-                                  <HBox prefHeight="30.0" prefWidth="282.0">
+                                  <HBox prefHeight="30.0" prefWidth="282.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="res Name:" />
-                                          <TextField fx:id="tf_name" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" />
+                                          <Label prefWidth="90.0" text="res Name:" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="tf_name" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" HBox.hgrow="ALWAYS" />
                                       </children>
                                   </HBox>
-                                  <HBox>
+                                  <HBox VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Choose tags:" />
-                                          <SplitMenuButton fx:id="smbtn_tags" mnemonicParsing="false" text="tags">
+                                          <Label prefWidth="90.0" text="Choose tags:" HBox.hgrow="ALWAYS" />
+                                          <SplitMenuButton fx:id="smbtn_tags" mnemonicParsing="false" text="tags" HBox.hgrow="ALWAYS">
                                               <items>
                                                   <CheckMenuItem mnemonicParsing="false" text="Kosher" />
                                                   <CheckMenuItem mnemonicParsing="false" text="Thiland" />
@@ -36,40 +36,40 @@
                                           </SplitMenuButton>
                                       </children>
                                   </HBox>
-                                  <HBox prefHeight="28.0" prefWidth="215.0">
+                                  <HBox prefHeight="28.0" prefWidth="215.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Owner Name:" />
-                                          <TextField fx:id="tf_owner" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                          <Label prefWidth="90.0" text="Owner Name:" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="tf_owner" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
                                       </children>
                                   </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Country" />
-                                          <TextField fx:id="tf_country" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                          <Label prefWidth="90.0" text="Country" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="tf_country" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
                                       </children>
                                   </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Region:" />
-                                          <TextField fx:id="tf_region" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                          <Label prefWidth="90.0" text="Region:" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="tf_region" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
                                       </children>
                                   </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Adress:" />
-                                          <TextField fx:id="tf_adress" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                          <Label prefWidth="90.0" text="Adress:" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="tf_adress" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
                                       </children>
                                   </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0">
+                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Phone number:" />
-                                          <TextField fx:id="tf_phone" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" />
+                                          <Label prefWidth="90.0" text="Phone number:" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="tf_phone" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
                                       </children>
                                   </HBox>
-                                  <HBox prefHeight="30.0" prefWidth="215.0">
+                                  <HBox prefHeight="30.0" prefWidth="215.0" VBox.vgrow="ALWAYS">
                                       <children>
-                                          <Label prefWidth="90.0" text="Status:" />
-                                          <MenuButton fx:id="mb_status" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable">
+                                          <Label prefWidth="90.0" text="Status:" HBox.hgrow="ALWAYS" />
+                                          <MenuButton fx:id="mb_status" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable" HBox.hgrow="ALWAYS">
                                               <items>
                                                   <MenuItem mnemonicParsing="false" text="Aviable" />
                                                   <MenuItem mnemonicParsing="false" text="Inaviable" />
@@ -87,12 +87,12 @@
           </Tab>
           <Tab fx:id="permissions" text="Permissions">
               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                          <TableView id="permission_table" fx:id="tableView_permissions" editable="true" layoutX="75.0" layoutY="57.0" prefHeight="315.0" prefWidth="429.0" />
-                  <HBox id="permissions_buttons" fx:id="hbox_buttons" layoutX="75.0" layoutY="372.0" prefHeight="80.0" prefWidth="428.0" />
-                      </children>
-            </AnchorPane>
+            <VBox alignment="CENTER">
+               <children>
+                          <TableView id="permission_table" fx:id="tableView_permissions" editable="true" VBox.vgrow="ALWAYS" />
+                  <HBox id="permissions_buttons" fx:id="hbox_buttons" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
               </content>
           </Tab>
           <Tab fx:id="modelEdit" text="Model Edit">

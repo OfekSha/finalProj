@@ -1,3 +1,5 @@
+package application.controller;
+
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -6,15 +8,31 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.annotations.Nullable;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class FireStoreConnection {
-   private Firestore db;
+    // Data is object that will use to save data and build map.
+    public class Data {
+        private String name;
+        private Object data;
+
+        public Data(String name, Object data) {
+            this.name = name;
+            this.data = data;
+        }
+    }
+
+    private CollectionReference docRef;
+    private Firestore db;
+
     private FireStoreConnection() throws IOException {
         try {
             init();
@@ -22,53 +40,60 @@ public class FireStoreConnection {
             e.printStackTrace();
         }
     }
-    static FireStoreConnection connection;
 
-    static {
+    static FireStoreConnection connection;
+// singleton:
+    static public FireStoreConnection getDB(){
         try {
             connection = new FireStoreConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return connection;
     }
 
     private void init() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream("C:\\Users\\ooffe\\IdeaProjects\\finalProj\\src\\main\\java\\tests\\serviceAccount.json");
+        InputStream serviceAccount =getClass().getClassLoader().getResourceAsStream("application/json/serviceAccount.json");
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
+        FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setDatabaseUrl("https://ofek-7fd70.firebaseio.com")
                 .build();
 
         FirebaseApp.initializeApp(options);
-         db = FirestoreClient.getFirestore();
+        db = FirestoreClient.getFirestore();
     }
-    private int resCounter=2;
-    public void addDataRes(String adress, String name, String owner, String pass, GeoPoint loc) throws ExecutionException, InterruptedException {
-        //DocumentReference docRef = db.collection("users").document("alovelace");
-        DocumentReference docRef = db.collection("Restaurants ").document(""+resCounter);
-// Add document data  with id "alovelace" using a hashmap
-        Map<String, Object> data = new HashMap<>();
-        data.put("address", adress);
-        data.put("location", loc);
-        data.put("name", name);
-        data.put("owner", owner);
-        data.put("password", pass);
-//asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
-        while(!result.isDone()){
 
+    private int resCounter = 2;
+
+
+    public void addDataRes(String collection, String document, Data... data) throws ExecutionException, InterruptedException {
+        DocumentReference docRef = db.collection(collection).document(document);
+        Map<String, Object> map = new HashMap<>();
+        for (Data d : data) {
+            map.put(d.name, d.data);
         }
-// ...
-// result.get() blocks on response
-        //System.out.println("Update time : " + result.get().getUpdateTime());
-        resCounter++;
+        ApiFuture<WriteResult> result = docRef.set(map);
+        while (!result.isDone()) {
+        }
     }
-    CollectionReference docRef;
-    public void showRes(){
-         docRef = db.collection("Restaurants ");
-        System.out.println("show res start");
+    public void addDataRes(String collection, String document, Object data) throws ExecutionException, InterruptedException {
+
+        DocumentReference docRef = db.collection(collection).document(document);
+        Map<String, Object> map = parameters(data);
+        ApiFuture<WriteResult> result = docRef.set(map);
+        while (!result.isDone()) {
+        }
+    }
+    public String addDataRes(String collection, Object data) throws ExecutionException, InterruptedException {
+        Map<String, Object> map = parameters(data);
+        ApiFuture<DocumentReference> result = db.collection(collection).add(map);
+        while (!result.isDone()) {
+        }
+        return result.get().getId();
+    }
+    public void showRes(String collection) {
+        docRef = db.collection(collection);
         docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshot,
@@ -89,14 +114,16 @@ public class FireStoreConnection {
             }
         });
     }
+
     DocumentReference docRef1;
-    public void showRes1() throws ExecutionException, InterruptedException {
+
+    private void showRes1() throws ExecutionException, InterruptedException {
         docRef1 = db.collection("Restaurants ").document("h");
         System.out.println("show res1 start");
-            // asynchronously retrieve the document
+        // asynchronously retrieve the document
         ApiFuture<DocumentSnapshot> future = docRef1.get();
-            // ...
-            // future.get() blocks on response
+        // ...
+        // future.get() blocks on response
         DocumentSnapshot document = future.get();
         if (document.exists()) {
             System.out.println("Document data: " + document.getData());
@@ -121,14 +148,20 @@ public class FireStoreConnection {
             }
         });
     }
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        //String adress="addr",  name="n",  owner="o",  pass="pa";
-        //GeoPoint loc=new GeoPoint(80,80);
-        //connection.addDataRes( adress,  name,  owner,  pass,  loc);
-        connection.showRes();
-        while (true) {
-            Thread.sleep(1000);
+    private Map<String, Object> parameters(Object obj) {
+        Map<String, Object> map = new HashMap<>();
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                Object object=field.get(obj);
+                if (object instanceof HashSet){
+                    HashSet hashSet = (HashSet) object;
+                    map.put(field.getName(),hashSet.stream().collect(Collectors.toList()));
+                }
+                else map.put(field.getName(), field.get(obj));
+            } catch (Exception e) {
+            }
         }
-
+        return map;
     }
 }

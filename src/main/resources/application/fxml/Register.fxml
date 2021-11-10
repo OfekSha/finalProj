@@ -3,7 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox alignment="CENTER" prefHeight="281.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
    <children>
       <HBox alignment="CENTER" prefHeight="30.0" prefWidth="282.0">
@@ -50,7 +49,9 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="48.0" prefWidth="215.0">
          <children>
-            <Button fx:id="btn_location" mnemonicParsing="false" onAction="#btn_clicked" prefHeight="32.0" prefWidth="161.0" text="Choose Location" />
+            <TextField fx:id="TF_Geo_Lat" editable="false" />
+            <TextField fx:id="TF_Geo_Long" editable="false" />
+            <Button fx:id="btn_location" mnemonicParsing="false" onAction="#btn_clicked" prefHeight="32.0" prefWidth="161.0" text="location" />
          </children>
       </HBox>
       <HBox alignment="CENTER">

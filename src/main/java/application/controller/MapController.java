@@ -1,11 +1,14 @@
 package application.controller;
 
+import application.DataHolder;
 import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingNode;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.jxmapviewer.JXMapViewer;
@@ -21,15 +24,18 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class MapController extends AnchorPane implements Initializable {
+    private RegisterController register;
     @FXML
     public SwingNode sn;
-
+    @FXML
+    public Button btn_save;
     private JFXPanel fxPanel=new JFXPanel();
     private JXMapViewer mapViewer=new JXMapViewer();
+    private GeoPosition lastLocationSelected;
     public MapController() {
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "Map.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(
+                "application/fxml/Map.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -53,7 +59,10 @@ public class MapController extends AnchorPane implements Initializable {
         }
 
     }
-
+    public MapController(RegisterController register){
+        this();
+        this.register=register;
+    }
     @Override
     public void setPrefSize(double prefWidth, double prefHeight) {
         super.setPrefSize(prefWidth, prefHeight);
@@ -87,8 +96,16 @@ public class MapController extends AnchorPane implements Initializable {
 
                 waypointPainter.setWaypoints(waypoints);
                 mapViewer.setOverlayPainter(waypointPainter);
+                lastLocationSelected=mouse;
 
             }
         });
+    }
+    public void btn_clicked(ActionEvent e){
+        Button btn = (Button) e.getSource(); // get the button object.
+        if (btn.equals(btn_save)){
+            DataHolder.tempRest.setPosition(lastLocationSelected);
+            register.setLocation(lastLocationSelected);
+        }
     }
 }

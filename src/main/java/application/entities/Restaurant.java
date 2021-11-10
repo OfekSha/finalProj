@@ -15,12 +15,12 @@ public class Restaurant {
     private String password;
     private Set<REST_TAGS> tags;
     private GeoPosition position;
-    private int id;
+    private String id;
     private ArrayList<Table> tables;
     private int model_height;
     private int model_width;
     private HashSet<Client> employee;
-    public Restaurant(String name, String ownerName, String address, String phoneNumber, String password, Set<REST_TAGS> tags, GeoPosition position, int id) {
+    public Restaurant(String name, String ownerName, String address, String phoneNumber, String password, Set<REST_TAGS> tags, GeoPosition position, String id) {
         this.name = name;
         this.ownerName = ownerName;
         this.address = address;
@@ -64,7 +64,7 @@ public class Restaurant {
         return position;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -96,7 +96,7 @@ public class Restaurant {
         this.position = position;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

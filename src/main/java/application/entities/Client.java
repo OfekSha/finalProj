@@ -3,7 +3,7 @@ package application.entities;
 
 import java.util.Objects;
 
-public class Client {
+public class Client  {
     private String name="";
     private String password="";
     private Permission permission=Permission.User;

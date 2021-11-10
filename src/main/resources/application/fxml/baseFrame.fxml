@@ -31,6 +31,7 @@
         </HBox>
         <HBox GridPane.columnIndex="4" GridPane.rowIndex="4">
             <children>
+            <Button fx:id="btn_back" mnemonicParsing="false" onAction="#backClicked" text="Back" />
                 <Button mnemonicParsing="false" text="Exit" />
             </children>
 

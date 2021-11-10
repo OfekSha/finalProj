@@ -20,7 +20,7 @@ public class clientDao implements DAO<Client> {
     Set<Client> clients=new HashSet<Client>();
     Gson gson;
     @Override
-    public Optional<Client> get(long id) {
+    public Optional<Client> get(String id) {
         return Optional.empty();
     }
 
