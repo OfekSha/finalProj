@@ -20,9 +20,11 @@
 }
 .green{
 -fx-effect: innershadow(gaussian  ,green,5,50,0,0);
+
 }
 .red{
 -fx-effect: innershadow(gaussian  ,red,5,50,0,0);
+
 }
 .selected{
 -fx-border-color: blue;

@@ -61,16 +61,24 @@ private void resizeNode(Node node){
     }
 
     if (node instanceof Label){
-        Label text=(Label)node;
-        DoubleProperty fontSize = new SimpleDoubleProperty(10);
-        fontSize.bind(text.widthProperty().add(text.heightProperty()).divide(15));
-        node.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+            Label text = (Label) node;
+            DoubleProperty fontSize = new SimpleDoubleProperty(10);
+            fontSize.bind(text.widthProperty().add(text.heightProperty()).divide(10));
+            fontSize.bind(heightProperty().add(widthProperty()).multiply(0.01));
+            node.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
     }
     if (node instanceof TextInputControl){
         TextInputControl text=(TextInputControl) node;
         DoubleProperty fontSize = new SimpleDoubleProperty(10);
-        fontSize.bind(text.widthProperty().add(text.heightProperty()).divide(15));
+        fontSize.bind(text.widthProperty().add(text.heightProperty()).divide(25));
+        fontSize.bind(heightProperty().add(widthProperty()).multiply(0.01));
         node.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+    }
+    if (node instanceof Button){
+        Button text = (Button) node;
+        DoubleProperty fontSize = new SimpleDoubleProperty(10);
+        fontSize.bind(heightProperty().add(widthProperty()).multiply(0.01));
+        node.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), "px;"));
     }
 
 }

@@ -37,6 +37,8 @@ public class cellController extends VBox {
     private BooleanProperty isAvailable;
     @FXML
     private Label seats;
+    @FXML
+    private Label seats_text;
     private double size = 12;
     private static final int MAX_WIDTH=100;
 
@@ -52,6 +54,7 @@ public class cellController extends VBox {
         this.hide = hide;
         smoke.setVisible(!hide && isSmoke.get());
         seats.setVisible(!hide);
+        seats_text.setVisible(!hide);
         table.setVisible(!hide);
     }
 
@@ -80,7 +83,7 @@ public class cellController extends VBox {
         setFontSize();
     }
     public StringProperty seatsProperty() {
-        return seats.textProperty();
+        return seats_text.textProperty();
     }
     public boolean isSmoke() {
         return isSmokeProperty().get();
@@ -115,14 +118,13 @@ public class cellController extends VBox {
     }
     private void setFontSize(){
 
-        seats.setFont(Font.font ("Arial", size));
-
+        seats_text.setFont(Font.font ("Arial", size));
         // java 7 =>
         //    text.snapshot(null, null);
         // java 8 =>
-        seats.applyCss();
+        seats_text.applyCss();
 
-        double width = seats.getLayoutBounds().getWidth();
+        double width = seats_text.getLayoutBounds().getWidth();
 
         if(width > MAX_WIDTH){
             size = size - 0.25;

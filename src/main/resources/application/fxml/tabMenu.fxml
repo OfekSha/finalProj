@@ -1,88 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<TabPane fx:id="tabPane" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TabMenuController">
+<TabPane fx:id="tabPane" prefHeight="501.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TabMenuController">
       <tabs>
           <Tab fx:id="options" text="Options">
               <content>
-            <HBox alignment="CENTER">
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="65.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                          <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                          <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowSpan="2147483647">
                               <children>
                                   <Button mnemonicParsing="false" text="Open Res" />
                                   <Button mnemonicParsing="false" text="Close Res" />
                               </children>
                           </VBox>
-                          <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                              <children>
-                                  <HBox prefHeight="30.0" prefWidth="282.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="res Name:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="tf_name" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="BP" HBox.hgrow="ALWAYS" />
-                                      </children>
-                                  </HBox>
-                                  <HBox VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Choose tags:" HBox.hgrow="ALWAYS" />
-                                          <SplitMenuButton fx:id="smbtn_tags" mnemonicParsing="false" text="tags" HBox.hgrow="ALWAYS">
-                                              <items>
-                                                  <CheckMenuItem mnemonicParsing="false" text="Kosher" />
-                                                  <CheckMenuItem mnemonicParsing="false" text="Thiland" />
-                                                  <CheckMenuItem mnemonicParsing="false" text="Milky" />
-                                                  <CheckMenuItem mnemonicParsing="false" text="Meaty" />
-                                              </items>
-                                          </SplitMenuButton>
-                                      </children>
-                                  </HBox>
-                                  <HBox prefHeight="28.0" prefWidth="215.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Owner Name:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="tf_owner" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
-                                      </children>
-                                  </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Country" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="tf_country" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
-                                      </children>
-                                  </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Region:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="tf_region" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
-                                      </children>
-                                  </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Adress:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="tf_adress" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
-                                      </children>
-                                  </HBox>
-                                  <HBox prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Phone number:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="tf_phone" editable="false" prefHeight="23.0" prefWidth="121.0" promptText="name" HBox.hgrow="ALWAYS" />
-                                      </children>
-                                  </HBox>
-                                  <HBox prefHeight="30.0" prefWidth="215.0" VBox.vgrow="ALWAYS">
-                                      <children>
-                                          <Label prefWidth="90.0" text="Status:" HBox.hgrow="ALWAYS" />
-                                          <MenuButton fx:id="mb_status" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="aviable" HBox.hgrow="ALWAYS">
-                                              <items>
-                                                  <MenuItem mnemonicParsing="false" text="Aviable" />
-                                                  <MenuItem mnemonicParsing="false" text="Inaviable" />
-                                              </items>
-                                          </MenuButton>
-                                      </children>
-                                  </HBox>
-                        <Button mnemonicParsing="false" text="Choose location" />
-                        <Button mnemonicParsing="false" text="Save" />
-                              </children>
-                          </VBox>
+                              <Label graphicTextGap="0.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="res Name:" GridPane.columnIndex="1" />
+                              <TextField fx:id="tf_name" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="BP" GridPane.columnIndex="2" />
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Choose tags:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <SplitMenuButton fx:id="smbtn_tags" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="tags" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                  <items>
+                                      <CheckMenuItem mnemonicParsing="false" text="Kosher" />
+                                      <CheckMenuItem mnemonicParsing="false" text="Thiland" />
+                                      <CheckMenuItem mnemonicParsing="false" text="Milky" />
+                                      <CheckMenuItem mnemonicParsing="false" text="Meaty" />
+                                  </items>
+                              </SplitMenuButton>
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Owner Name:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="tf_owner" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="name" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Country" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="tf_country" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="name" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Region:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="tf_region" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="name" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Adress:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="tf_adress" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="name" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Phone number:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <TextField fx:id="tf_phone" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="name" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Status:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <MenuButton fx:id="mb_status" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="aviable" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                  <items>
+                                      <MenuItem mnemonicParsing="false" text="Aviable" />
+                                      <MenuItem mnemonicParsing="false" text="Inaviable" />
+                                  </items>
+                              </MenuButton>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Choose location" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                </children>
-            </HBox>
+            </GridPane>
               </content>
           </Tab>
           <Tab fx:id="permissions" text="Permissions">
@@ -189,22 +185,18 @@
           </Tab>
           <Tab fx:id="chat" text="Chat">
               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                          <TextArea prefHeight="238.0" prefWidth="381.0" text="Client 1: &quot;hello&quot;&#10;Client 2: &quot;blabla&quot;&#10;me: &quot;please wait 5 min...&quot;&#10;" />
-                          <VBox layoutY="238.0" prefHeight="63.0" prefWidth="382.0">
-                              <children>
-                                  <HBox prefHeight="39.0" prefWidth="271.0">
-                                      <children>
-                                          <TextField prefHeight="25.0" prefWidth="249.0" />
-                                          <Button mnemonicParsing="false" text="Send" />
-                                          <Button mnemonicParsing="false" text="Clear" />
-                                      </children>
-                                  </HBox>
-                              </children>
-                          </VBox>
-                      </children>
-            </AnchorPane>
+            <VBox fillWidth="true">
+               <children>
+                          <TextArea promptText="no messages" text="" VBox.vgrow="ALWAYS" />
+                            <HBox fillHeight="true">
+                                <children>
+                                    <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Send" HBox.hgrow="ALWAYS" />
+                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Clear" HBox.hgrow="ALWAYS" />
+                                </children>
+                            </HBox>
+               </children>
+            </VBox>
               </content>
           </Tab>
       </tabs>

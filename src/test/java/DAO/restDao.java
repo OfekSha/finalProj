@@ -1,5 +1,6 @@
 package DAO;
 
+import application.controller.FireStoreListener;
 import application.controller.dao.DAO;
 import application.entities.Restaurant;
 import application.entities.Table;
@@ -80,6 +81,11 @@ public class restDao implements DAO<Restaurant> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void connectLiveData(FireStoreListener listener) {
+
     }
 
     @Override

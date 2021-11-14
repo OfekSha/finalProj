@@ -42,7 +42,6 @@
 
 }
 .header .label{
-	-fx-font-size:36px;
 	-fx-text-fill:black;
 	-fx-effect: dropshadow(gaussian ,#426eb4,1,1,0px,0px);
 }
@@ -55,7 +54,6 @@
 
 }
 .button .text{
-	-fx-font-size:20px;
 	-fx-fill: white;
 	-fx-effect: dropshadow(gaussian ,#00ced1,1,1,0px,0px);
 }

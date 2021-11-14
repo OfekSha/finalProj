@@ -16,10 +16,13 @@ public class Restaurant {
     private Set<REST_TAGS> tags;
     private GeoPosition position;
     private String id;
-    private ArrayList<Table> tables;
+    private ArrayList<Table> tables= new ArrayList<Table>();
     private int model_height;
     private int model_width;
-    private HashSet<Client> employee;
+    private HashSet<Client> employee=new HashSet<Client>();
+    public Restaurant(){
+        this(null,null,null,null,null,null,new GeoPosition(0,0),null);
+    }
     public Restaurant(String name, String ownerName, String address, String phoneNumber, String password, Set<REST_TAGS> tags, GeoPosition position, String id) {
         this.name = name;
         this.ownerName = ownerName;

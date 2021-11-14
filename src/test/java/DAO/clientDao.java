@@ -1,5 +1,6 @@
 package DAO;
 
+import application.controller.FireStoreListener;
 import application.controller.dao.DAO;
 import application.entities.Client;
 import com.google.gson.Gson;
@@ -54,6 +55,11 @@ public class clientDao implements DAO<Client> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void connectLiveData(FireStoreListener listener) {
+
     }
 
     @Override

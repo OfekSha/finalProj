@@ -6,7 +6,12 @@
 <fx:root stylesheets="@tablesStyle.css" type="VBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="smoke" prefHeight="8.0" prefWidth="177.0" styleClass="smoke_zone" text="Label" />
-      <Label fx:id="seats" alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="177.0" styleClass="chair" text="100" wrapText="true" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="seats" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="chair" wrapText="true" HBox.hgrow="ALWAYS" />
+            <Label fx:id="seats_text" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" />
+         </children>
+      </HBox>
       <Label fx:id="table" prefHeight="37.0" prefWidth="178.0" styleClass="table" text="Label" />
    </children>
 </fx:root>

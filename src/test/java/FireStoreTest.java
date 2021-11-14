@@ -1,6 +1,7 @@
 import application.DataHolder;
 import application.controller.BaseFrameController;
 import application.controller.FireStoreConnection;
+import application.controller.FireStoreListener;
 import application.controller.dao.DAO;
 import application.entities.Restaurant;
 import javafx.scene.Scene;
@@ -98,9 +99,26 @@ public class FireStoreTest  extends ApplicationTest {
 
     private class clientDaoFireStore implements DAO<Restaurant> {
         private FireStoreConnection db= FireStoreConnection.getDB();
-
+        private FireStoreListener listener;
+        public void setListener(FireStoreListener listener) {
+            this.listener = listener;
+        }
         @Override
         public Optional<Restaurant> get(String id) {
+
+            try {
+                Restaurant restaurant=new Restaurant();
+                restaurant = db.getDataById(id,restaurant);
+                if (restaurant!=null) {
+                    DataHolder.rest_id=id;
+                    restaurant.setId(id);
+                }
+                return  Optional.ofNullable(restaurant);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return Optional.empty();
         }
 
@@ -121,8 +139,19 @@ public class FireStoreTest  extends ApplicationTest {
         }
 
         @Override
-        public void update(Restaurant restaurant, String[] params) {
+        public void connectLiveData(FireStoreListener listener) {
+            this.listener=listener;
+        }
 
+        @Override
+        public void update(Restaurant restaurant, String[] params) {
+            try {
+                db.updateData("Restaurants",DataHolder.rest_id, restaurant);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
