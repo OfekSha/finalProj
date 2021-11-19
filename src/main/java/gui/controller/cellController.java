@@ -3,6 +3,7 @@ package gui.controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -104,12 +105,13 @@ public class cellController extends VBox {
 
     public void setIsAvailable(boolean value) {
         isAvailableProperty().set(value);
-        changeStyle(value ? "red": "green",value ? "green": "red",table,seats);
     }
     private void changeStyle(String oldStyle, String newStyle,Node... nodes){
+        PseudoClass old = PseudoClass.getPseudoClass(oldStyle);
+        PseudoClass now = PseudoClass.getPseudoClass(newStyle);
         for (Node node:nodes) {
-            node.getStyleClass().remove(oldStyle);
-            node.getStyleClass().add(newStyle);
+            node.pseudoClassStateChanged(old,false);
+            node.pseudoClassStateChanged(now,true);
         }
     }
 
@@ -137,12 +139,23 @@ public class cellController extends VBox {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/fxml/cell.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+
         try {
             fxmlLoader.load();
             isSmoke=new SimpleBooleanProperty(false);
             smoke.setText("");
             smoke.setVisible(false);
             isAvailable=new SimpleBooleanProperty(false);
+            isAvailable.addListener((obj, old, now) -> {
+                PseudoClass red = PseudoClass.getPseudoClass("red");
+                PseudoClass green = PseudoClass.getPseudoClass("green");
+                //changeStyle(now ? "red": "green",now ? "green": "red",table,seats)
+                table.pseudoClassStateChanged(green, now);
+                table.pseudoClassStateChanged(red, !now);
+                seats.pseudoClassStateChanged(green, now);
+                seats.pseudoClassStateChanged(red, !now);
+                    }
+            );
             setSeats("0");
             setTableNumber("0");
             //setFontSize();

@@ -199,7 +199,7 @@ public class FireStoreConnection {
             try {
                 Object obj = map.get(field.getName());
                 if (obj==null) continue;
-                if (obj instanceof HashMap){ // convert object
+                if (obj instanceof HashMap && !field.getType().isAssignableFrom(HashMap.class)){ // convert object
                     field.set(output,fromMapToObject((HashMap)obj,field.get(output)));
                 }
                 else if (obj instanceof ArrayList && field.getType().isAssignableFrom(HashSet.class)) { // convert array

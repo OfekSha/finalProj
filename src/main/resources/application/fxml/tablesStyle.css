@@ -18,11 +18,11 @@
  -fx-effect: dropshadow(gaussian  ,blue,1,1,0,0);
 
 }
-.green{
+.chair:green, .table:green{
 -fx-effect: innershadow(gaussian  ,green,5,50,0,0);
 
 }
-.red{
+.chair:red , .table:red{
 -fx-effect: innershadow(gaussian  ,red,5,50,0,0);
 
 }

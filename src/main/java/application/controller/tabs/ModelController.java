@@ -30,6 +30,13 @@ public class ModelController {
         setModel(rows.get(),cols.get(), tables);
 
     }
+    public void showTablesByTime(String time){
+        DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant->{
+            restaurant.getTables().forEach(table->{
+                getCellOfTable(table).setIsAvailable(table.getIsFreeByTime().get(time));
+            });
+        });
+    }
     public ArrayList<Table> getAllTables(){
         ArrayList<Table> tables= new ArrayList<Table>();
         for (Node node:modelTable.getChildren()){
@@ -68,7 +75,7 @@ public class ModelController {
             ObservableList<Node> children = modelTable.getChildren();
             for (Node node : children) {
                 if (!(node instanceof cellController))continue;
-                if(modelTable.getRowIndex(node) == table.getX() && modelTable.getColumnIndex(node) == table.getY()) {
+                if(modelTable.getRowIndex(node) == table.getY() && modelTable.getColumnIndex(node) == table.getX()) {
                     result =(cellController) node;
                     break;
                 }

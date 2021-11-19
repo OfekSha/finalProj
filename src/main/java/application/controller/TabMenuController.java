@@ -80,6 +80,9 @@ public class TabMenuController implements Initializable {
     private GridPane modelTable;
 
     @FXML
+    private MenuButton mb_time;
+
+    @FXML
     private Tab notifications;
 
     @FXML
@@ -105,6 +108,14 @@ public class TabMenuController implements Initializable {
                 modelController=new ModelController(modelTable);
                 new ModelEditorController(vbox_edit_menu,modelEditTable);
                 PermissionsController pController=new PermissionsController(tableView_permissions,hbox_buttons);
+                mb_time.getItems().clear();
+                XMLReader.getTimeArray().forEach(el->{
+                    MenuItem item = new MenuItem(el);
+                    item.setOnAction(event->{
+                        modelController.showTablesByTime(el);
+                    });
+                    mb_time.getItems().add(item);
+                });
                 break;
             default:
                 tabs.clear();
