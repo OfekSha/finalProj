@@ -131,6 +131,7 @@ public class FireStoreTest  extends ApplicationTest {
         public void save(Restaurant restaurant) {
             try {
                 DataHolder.rest_id=db.addDataRes("Restaurants", restaurant);
+
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

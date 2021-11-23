@@ -99,6 +99,10 @@ public class FireStoreConnection {
         }
         return result.get().getId();
     }
+    public void addCollection(String collection,String doc_id){
+        CollectionReference coll =
+                db.collection("Restaurants").document(doc_id).collection(collection);
+    }
 
     public void showRes(String collection) {
         docRef = db.collection(collection);
