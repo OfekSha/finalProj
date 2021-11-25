@@ -2,6 +2,7 @@ package application.controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.EventListener;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -14,10 +15,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class FireStoreConnection {
@@ -49,6 +47,7 @@ public class FireStoreConnection {
 
     // singleton:
     static public FireStoreConnection getDB() {
+        if (connection!=null) return connection;
         try {
             connection = new FireStoreConnection();
         } catch (IOException e) {
@@ -99,32 +98,12 @@ public class FireStoreConnection {
         }
         return result.get().getId();
     }
-    public void addCollection(String collection,String doc_id){
-        CollectionReference coll =
-                db.collection("Restaurants").document(doc_id).collection(collection);
-    }
-
-    public void showRes(String collection) {
-        docRef = db.collection(collection);
-        docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshot,
-                                @Nullable FirestoreException e) {
-                if (e != null) {
-                    System.err.println("Listen failed: " + e);
-                    return;
-                }
-
-                for (DocumentChange dc : snapshot.getDocumentChanges()) {
-                    if (dc.getType() == DocumentChange.Type.ADDED) {
-                        System.out.println("New rest: " + dc.getDocument().getData());
-                    }
-                    if (dc.getType() == DocumentChange.Type.MODIFIED) {
-                        System.out.println("rest modified: " + dc.getDocument().getData());
-                    }
-                }
-            }
-        });
+    public boolean addDataRes(String collection1,String document,String collection2,String target,Object data ) throws ExecutionException, InterruptedException {
+        Map<String, Object> map = parameters(data);
+        ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(target).set(map);
+        while (!result.isDone()) {
+        }
+        return true;
     }
     public void connectListenerToData(String id,FireStoreListener listener) {
         DocumentReference docRef = db.collection("Restaurants").document(id);
@@ -146,20 +125,37 @@ public class FireStoreConnection {
             }
         });
     }
-    public <T> T getDataById(String id,T output) throws ExecutionException, InterruptedException {
-        DocumentReference docRef = db.collection("Restaurants").document(id);
+    private <T> T getDataById(DocumentReference docRef,T output) throws ExecutionException, InterruptedException {
         // asynchronously retrieve the document
         ApiFuture<DocumentSnapshot> future = docRef.get();
         // ...
         // future.get() blocks on response
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
+        DocumentSnapshot doc = future.get();
+        if (doc.exists()) {
             //System.out.println("Document data: " + document.getData());
         } else {
             //System.out.println("No such document!");
         }
         while (!future.isDone()) ;
         return fromMapToObject(future.get().getData(),output);
+    }
+    public <T> List<T> getAllData(String document,String collection,T output) throws ExecutionException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        ApiFuture<QuerySnapshot> future = db.collection("Restaurants").document(document).collection(collection).get();
+        future.get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List listObjects=new ArrayList<T>();
+        for (QueryDocumentSnapshot doc : documents) {
+            listObjects.add(fromMapToObject(doc.getData(),output.getClass().getConstructor().newInstance()));
+        }
+        return listObjects;
+    }
+    public <T> T getDataById(String id,String document,String collection,T output) throws ExecutionException, InterruptedException {
+        DocumentReference docRef = db.collection("Restaurants").document(document).collection(collection).document(id);
+        return getDataById(docRef,output);
+    }
+    public <T> T getDataById(String id,T output) throws ExecutionException, InterruptedException {
+        DocumentReference docRef = db.collection("Restaurants").document(id);
+        return getDataById(docRef,output);
     }
 
     private Map<String, Object> parameters(Object obj) {

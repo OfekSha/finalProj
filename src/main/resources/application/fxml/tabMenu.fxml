@@ -158,14 +158,14 @@
           </Tab>
           <Tab fx:id="notifications" text="Notifications">
               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <VBox alignment="CENTER">
                       <children>
-                          <TextArea prefHeight="238.0" prefWidth="381.0" text="- line 1&#10;- line 2&#10;- line 3&#10;- line 4" />
-                          <Button layoutX="34.0" layoutY="251.0" mnemonicParsing="false" text="Clear" />
-                          <Button layoutX="117.0" layoutY="251.0" mnemonicParsing="false" text="Save" />
+                          <TableView id="permission_table" fx:id="tableView_notifications" editable="true" VBox.vgrow="ALWAYS" />
+                          <HBox id="permissions_buttons" fx:id="buttons_notifications" VBox.vgrow="ALWAYS" />
                       </children>
-            </AnchorPane>
+                  </VBox>
               </content>
+
           </Tab>
           <Tab fx:id="chat" text="Chat">
               <content>

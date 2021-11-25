@@ -3,7 +3,9 @@ package application.controller.tabs;
 import application.DataHolder;
 import application.entities.Request;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +16,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.DefaultStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +25,24 @@ public class NotificationsController {
 
     public class TableNotificationData {
         private final SimpleStringProperty client_id;
-        private final SimpleStringProperty table_id;
+        private final SimpleLongProperty table_id;
         private final SimpleBooleanProperty approved;
-        private final SimpleStringProperty time;
+        private final SimpleLongProperty time;
 
-        public TableNotificationData(String client_id, String table_id, boolean approved, String time) {
+        public TableNotificationData(String client_id, long table_id, boolean approved, long time) {
             this.client_id = new SimpleStringProperty(client_id);
-            this.table_id = new SimpleStringProperty(table_id);
+            this.table_id = new SimpleLongProperty(table_id);
             this.approved = new SimpleBooleanProperty(approved);
-            this.time = new SimpleStringProperty(time);
+            this.time = new SimpleLongProperty(time);
         }
 
         public Request getRequestObject() {
             return new Request(client_id.get(), table_id.get(), time.get(), approved.get());
         }
 
+
         public TableNotificationData() {
-            this("no id", "no id", false, "no time");
+            this("no id", 0L, false, 0L);
         }
 
         public String getClient_id() {
@@ -53,15 +57,15 @@ public class NotificationsController {
             this.client_id.set(client_id);
         }
 
-        public String getTable_id() {
+        public long getTable_id() {
             return table_id.get();
         }
 
-        public SimpleStringProperty table_idProperty() {
+        public SimpleLongProperty table_idProperty() {
             return table_id;
         }
 
-        public void setTable_id(String table_id) {
+        public void setTable_id(long table_id) {
             this.table_id.set(table_id);
         }
 
@@ -77,22 +81,24 @@ public class NotificationsController {
             this.approved.set(approved);
         }
 
-        public String getTime() {
+        public long getTime() {
             return time.get();
         }
 
-        public SimpleStringProperty timeProperty() {
+        public SimpleLongProperty timeProperty() {
             return time;
         }
 
-        public void setTime(String time) {
+        public void setTime(long time) {
             this.time.set(time);
         }
     }
 
     TableView<TableNotificationData> tableView;
     Pane buttons;
-
+    private TableNotificationData  fromRequestToTableDataObject(Request request){
+        return new TableNotificationData(request.getClient_id(), request.getTable_id(),request.isApproved(),request.getTime() );
+    }
     public NotificationsController(TableView<TableNotificationData> table, Pane buttons) {
         tableView = table;
         this.buttons = buttons;
@@ -154,32 +160,37 @@ public class NotificationsController {
         }
         return requests;
     }
-
     private void initRequestsTable() {
         // TODO: add data from the dao.
-        /*
-        ObservableList<TableNotificationData> data = FXCollections.observableList(tableData);
-        // set data for begin:
-        tableView.setItems(data);
-        */
+        List<Request> requestsData = DataHolder.requests.getAll();
+        if (requestsData!=null) {
+            List<TableNotificationData> tableData = new ArrayList<TableNotificationData>();
+            requestsData.forEach(request -> {
+                tableData.add(fromRequestToTableDataObject(request));
+            });
 
+            ObservableList<TableNotificationData> data = FXCollections.observableList(tableData);
+            // set data for begin:
+            tableView.setItems(data);
+
+        }
         // set table editable and build it's columns:
         tableView.setEditable(false);
         TableColumn<TableNotificationData, String> tc_client = new TableColumn<TableNotificationData, String>("client id");
-        TableColumn<TableNotificationData, String> tc_table = new TableColumn<TableNotificationData, String>("table id");
+        TableColumn<TableNotificationData, Number> tc_table = new TableColumn<TableNotificationData, Number>("table id");
         TableColumn<TableNotificationData, Boolean> tc_approved = new TableColumn<TableNotificationData, Boolean>("approved");
-        TableColumn<TableNotificationData, String> tc_time = new TableColumn<TableNotificationData, String>("time");
+        TableColumn<TableNotificationData, Number> tc_time = new TableColumn<TableNotificationData, Number>("time");
         tc_client.setCellValueFactory(cellData -> cellData.getValue().client_id);
         tc_client.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
         tc_client.setEditable(false);
         tc_table.setCellValueFactory(cellData -> cellData.getValue().table_id);
-        tc_table.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+        tc_table.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         tc_table.setEditable(false);
         tc_approved.setCellValueFactory(cellData -> cellData.getValue().approved);
         tc_approved.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
         tc_approved.setEditable(false);
-        tc_time.setCellValueFactory(cellData -> cellData.getValue().table_id);
-        tc_time.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+        tc_time.setCellValueFactory(cellData -> cellData.getValue().time);
+        tc_time.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         tc_time.setEditable(false);
         tableView.getColumns().addAll(tc_client, tc_table, tc_approved, tc_time);
         tc_client.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));

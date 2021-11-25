@@ -3,6 +3,7 @@ package application.controller;
 import application.DataHolder;
 import application.controller.tabs.ModelController;
 import application.controller.tabs.ModelEditorController;
+import application.controller.tabs.NotificationsController;
 import application.controller.tabs.PermissionsController;
 import application.entities.Permission;
 import javafx.collections.ObservableList;
@@ -82,8 +83,16 @@ public class TabMenuController implements Initializable {
     @FXML
     private MenuButton mb_time;
 
+    // notification tab:
     @FXML
     private Tab notifications;
+
+    @FXML
+    private TableView<NotificationsController.TableNotificationData> tableView_notifications;
+
+    @FXML
+    private HBox buttons_notifications;
+// chat tab:
 
     @FXML
     private Tab chat;
@@ -106,8 +115,6 @@ public class TabMenuController implements Initializable {
                 tabs.remove(modelEdit);
             case Owner:
                 modelController=new ModelController(modelTable);
-                new ModelEditorController(vbox_edit_menu,modelEditTable);
-                PermissionsController pController=new PermissionsController(tableView_permissions,hbox_buttons);
                 mb_time.getItems().clear();
                 XMLReader.getTimeArray().forEach(el->{
                     MenuItem item = new MenuItem(el);
@@ -116,6 +123,11 @@ public class TabMenuController implements Initializable {
                     });
                     mb_time.getItems().add(item);
                 });
+                if (p==Permission.Waiter) break;
+                new ModelEditorController(vbox_edit_menu,modelEditTable);
+                NotificationsController nController= new NotificationsController(tableView_notifications,buttons_notifications);
+                if (p==Permission.Manager) break;
+                PermissionsController pController=new PermissionsController(tableView_permissions,hbox_buttons);
                 break;
             default:
                 tabs.clear();
