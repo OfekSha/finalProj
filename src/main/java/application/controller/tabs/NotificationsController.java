@@ -18,6 +18,7 @@ import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +28,13 @@ public class NotificationsController {
         private final SimpleStringProperty client_id;
         private final SimpleLongProperty table_id;
         private final SimpleBooleanProperty approved;
-        private final SimpleLongProperty time;
+        private final SimpleStringProperty time;
 
-        public TableNotificationData(String client_id, long table_id, boolean approved, long time) {
+        public TableNotificationData(String client_id, long table_id, boolean approved, String time) {
             this.client_id = new SimpleStringProperty(client_id);
             this.table_id = new SimpleLongProperty(table_id);
             this.approved = new SimpleBooleanProperty(approved);
-            this.time = new SimpleLongProperty(time);
+            this.time = new SimpleStringProperty(time);
         }
 
         public Request getRequestObject() {
@@ -42,7 +43,7 @@ public class NotificationsController {
 
 
         public TableNotificationData() {
-            this("no id", 0L, false, 0L);
+            this("no id", 0L, false, "no time");
         }
 
         public String getClient_id() {
@@ -81,15 +82,15 @@ public class NotificationsController {
             this.approved.set(approved);
         }
 
-        public long getTime() {
+        public String getTime() {
             return time.get();
         }
 
-        public SimpleLongProperty timeProperty() {
+        public SimpleStringProperty timeProperty() {
             return time;
         }
 
-        public void setTime(long time) {
+        public void setTime(String time) {
             this.time.set(time);
         }
     }
@@ -124,6 +125,15 @@ public class NotificationsController {
                 DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant -> {
                     getListOfRequests(tableData).forEach(request -> {
                         DataHolder.requests.save(request);
+                        restaurant.getTables().forEach(table->{
+                            if(table.getId()== request.getTable_id().intValue()){
+                                table.getIsFreeByTime().put(request.getTime(),!request.isApproved());
+                                if (LocalTime.now().isAfter(LocalTime.parse(request.getTime())) &&  LocalTime.now().isBefore(LocalTime.parse(request.getTime()).plusMinutes(30))){
+                                    table.setFree(false);
+                                }
+                            }
+                        });
+                        DataHolder.restaurant.update(restaurant,null);
                     });
                     DataHolder.restaurant.update(restaurant, null);
                 });
@@ -179,7 +189,7 @@ public class NotificationsController {
         TableColumn<TableNotificationData, String> tc_client = new TableColumn<TableNotificationData, String>("client id");
         TableColumn<TableNotificationData, Number> tc_table = new TableColumn<TableNotificationData, Number>("table id");
         TableColumn<TableNotificationData, Boolean> tc_approved = new TableColumn<TableNotificationData, Boolean>("approved");
-        TableColumn<TableNotificationData, Number> tc_time = new TableColumn<TableNotificationData, Number>("time");
+        TableColumn<TableNotificationData, String> tc_time = new TableColumn<TableNotificationData, String>("time");
         tc_client.setCellValueFactory(cellData -> cellData.getValue().client_id);
         tc_client.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
         tc_client.setEditable(false);
@@ -190,7 +200,7 @@ public class NotificationsController {
         tc_approved.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
         tc_approved.setEditable(false);
         tc_time.setCellValueFactory(cellData -> cellData.getValue().time);
-        tc_time.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+        tc_time.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
         tc_time.setEditable(false);
         tableView.getColumns().addAll(tc_client, tc_table, tc_approved, tc_time);
         tc_client.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));

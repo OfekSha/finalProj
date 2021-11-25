@@ -2,18 +2,18 @@ package application.entities;
 
 public class Request {
 
-        private String client_id;
-        private Long table_id, time;
+        private String client_id,time;
+        private Long table_id;
         private boolean approved;
 
-        public Request(String client_id, Long table_id, Long time, boolean approved) {
+        public Request(String client_id, Long table_id, String time, boolean approved) {
             this.client_id = client_id;
             this.table_id = table_id;
             this.time = time;
             this.approved = approved;
         }
         public Request(){
-            this("no id",0L,0L,false);
+            this("no id",0L,"no time",false);
         }
 
     public String getClient_id() {
@@ -32,11 +32,11 @@ public class Request {
         this.table_id = table_id;
     }
 
-    public Long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
