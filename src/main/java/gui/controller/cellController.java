@@ -31,7 +31,8 @@ public class cellController extends VBox {
     public static void setSelectedCell(cellController selectedCell) {
         cellController.selectedCell = selectedCell;
     }
-
+    PseudoClass red = PseudoClass.getPseudoClass("red");
+    PseudoClass green = PseudoClass.getPseudoClass("green");
     @FXML
     private Label smoke;
     private BooleanProperty isSmoke;
@@ -146,14 +147,18 @@ public class cellController extends VBox {
             smoke.setText("");
             smoke.setVisible(false);
             isAvailable=new SimpleBooleanProperty(false);
+            table.pseudoClassStateChanged(red, true);
+            table.pseudoClassStateChanged(green, false);
+            seats.pseudoClassStateChanged(red, true);
+            seats.pseudoClassStateChanged(green, false);
             isAvailable.addListener((obj, old, now) -> {
-                PseudoClass red = PseudoClass.getPseudoClass("red");
-                PseudoClass green = PseudoClass.getPseudoClass("green");
+
                 //changeStyle(now ? "red": "green",now ? "green": "red",table,seats)
-                table.pseudoClassStateChanged(green, now);
                 table.pseudoClassStateChanged(red, !now);
-                seats.pseudoClassStateChanged(green, now);
+                table.pseudoClassStateChanged(green, now);
                 seats.pseudoClassStateChanged(red, !now);
+                seats.pseudoClassStateChanged(green, now);
+
                     }
             );
             setSeats("0");

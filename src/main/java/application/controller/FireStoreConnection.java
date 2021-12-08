@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.controller.dao.DAO;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.EventListener;
@@ -81,46 +82,61 @@ public class FireStoreConnection {
         while (!result.isDone()) {
         }
     }
+    public void deleteData(String collection1, String document, String collection2,String id) throws ExecutionException, InterruptedException {
+        ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(id).delete();
+        while(!result.isDone());
 
+    }
     public void updateData(String collection, String document, Object data) throws ExecutionException, InterruptedException {
 
         DocumentReference docRef = db.collection(collection).document(document);
-        Map<String, Object> map = parameters(data);
+        Map<String, Object> map = fromObjectToMap(data);
         ApiFuture<WriteResult> result = docRef.set(map);
         while (!result.isDone()) {
         }
     }
 
     public String addDataRes(String collection, Object data) throws ExecutionException, InterruptedException {
-        Map<String, Object> map = parameters(data);
+        Map<String, Object> map = fromObjectToMap(data);
         ApiFuture<DocumentReference> result = db.collection(collection).add(map);
         while (!result.isDone()) {
         }
         return result.get().getId();
     }
     public boolean addDataRes(String collection1,String document,String collection2,String target,Object data ) throws ExecutionException, InterruptedException {
-        Map<String, Object> map = parameters(data);
+        Map<String, Object> map = fromObjectToMap(data);
         ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(target).set(map);
         while (!result.isDone()) {
         }
         return true;
     }
-    public void connectListenerToData(String id,FireStoreListener listener) {
-        DocumentReference docRef = db.collection("Restaurants").document(id);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+    public void connectListenerToData(String doc, String coll, DAO listener) {
+        CollectionReference colRef = db.collection("Restaurants").document(doc).collection(coll);
+        colRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirestoreException e) {
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirestoreException e) {
                 if (e != null) {
                     System.err.println("Listen failed: " + e);
                     return;
                 }
 
-                if (snapshot != null && snapshot.exists()) {
-                    //System.out.println("Current data: " + snapshot.getData());
-                    listener.onDataChanged(snapshot.getData());
-                } else {
-                    System.out.print("Current data: null");
+                for (DocumentChange  dc : snapshots.getDocumentChanges()) {
+                    switch (dc.getType()) {
+                        case ADDED:
+                            //System.out.println("New city: " + dc.getDocument().getData());
+                            listener.onDataAdded(dc.getDocument().getData());
+                            break;
+                        case MODIFIED:
+                            //System.out.println("Modified city: " + dc.getDocument().getData());
+                            listener.onDataChanged(dc.getDocument().getData());
+                            break;
+                        case REMOVED:
+                            //System.out.println("Removed city: " + dc.getDocument().getData());
+                            listener.onDataRemoved(dc.getDocument().getData());
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         });
@@ -158,7 +174,7 @@ public class FireStoreConnection {
         return getDataById(docRef,output);
     }
 
-    private Map<String, Object> parameters(Object obj) {
+    public Map<String, Object> fromObjectToMap(Object obj) {
         Map<String, Object> map = new HashMap<>();
         for (Field field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
@@ -171,7 +187,7 @@ public class FireStoreConnection {
                     hashSet.stream().forEach(e->{
                         HashMap hashMap;
                         arrayList.add(hashMap=new HashMap());
-                        hashMap.put(e.getClass().getSimpleName(),parameters(e));
+                        hashMap.put(e.getClass().getSimpleName(), fromObjectToMap(e));
                     });
                 } else if (object instanceof ArrayList) {
                     ArrayList arrayList;
@@ -180,7 +196,7 @@ public class FireStoreConnection {
                     hashSet.stream().forEach(e->{
                         HashMap hashMap;
                         arrayList.add(hashMap=new HashMap());
-                        hashMap.put(e.getClass().getSimpleName(),parameters(e));
+                        hashMap.put(e.getClass().getSimpleName(), fromObjectToMap(e));
                     });
                 }else map.put(field.getName(), field.get(obj));
             } catch (Exception e) {
@@ -189,7 +205,7 @@ public class FireStoreConnection {
         return map;
     }
 
-    private <T> T fromMapToObject(Map<String, Object> map, T output) {
+    public <T> T fromMapToObject(Map<String, Object> map, T output) {
         /* @@TODO need to fix convert:
          tables
         */

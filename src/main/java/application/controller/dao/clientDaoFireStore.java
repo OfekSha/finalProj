@@ -6,6 +6,7 @@ import application.controller.FireStoreListener;
 import application.entities.Restaurant;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -71,6 +72,26 @@ public class clientDaoFireStore implements DAO<Restaurant> {
 
     @Override
     public void delete(Restaurant restaurant) {
+
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onDataChanged(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void onDataRemoved(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void onDataAdded(Map<String, Object> data) {
 
     }
 }

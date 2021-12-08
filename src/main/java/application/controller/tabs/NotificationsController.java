@@ -1,6 +1,7 @@
 package application.controller.tabs;
 
 import application.DataHolder;
+import application.controller.FireStoreListener;
 import application.entities.Request;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -22,7 +23,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationsController {
+public class NotificationsController{
 
     public class TableNotificationData {
         private final SimpleStringProperty client_id;
@@ -93,6 +94,7 @@ public class NotificationsController {
         public void setTime(String time) {
             this.time.set(time);
         }
+
     }
 
     TableView<TableNotificationData> tableView;
@@ -170,20 +172,16 @@ public class NotificationsController {
         }
         return requests;
     }
-    private void initRequestsTable() {
-        // TODO: add data from the dao.
-        List<Request> requestsData = DataHolder.requests.getAll();
-        if (requestsData!=null) {
-            List<TableNotificationData> tableData = new ArrayList<TableNotificationData>();
-            requestsData.forEach(request -> {
-                tableData.add(fromRequestToTableDataObject(request));
-            });
-
-            ObservableList<TableNotificationData> data = FXCollections.observableList(tableData);
-            // set data for begin:
-            tableView.setItems(data);
-
+    private void setAutoApprove(boolean on){
+        LocalTime maxTime=LocalTime.of(2,0);
+        if (!on){
+            return;
         }
+
+    }
+    private void initRequestsTable() {
+
+        liveUpdate(true);
         // set table editable and build it's columns:
         tableView.setEditable(false);
         TableColumn<TableNotificationData, String> tc_client = new TableColumn<TableNotificationData, String>("client id");
@@ -211,6 +209,54 @@ public class NotificationsController {
         tc_table.setResizable(false);
         tc_approved.setResizable(false);
         tc_time.setResizable(false);
+
+    }
+    private void liveUpdate(boolean on){
+        if (on){
+
+            DataHolder.requests.connectLiveData(new FireStoreListener<Request>() {
+                @Override
+                public void onFailed() {
+
+                }
+
+                @Override
+                public void onDataChanged(Request data) {
+                    TableNotificationData temp = tableView.getItems().stream().filter(tableData -> {
+                        return tableData.client_id.get().equals(data.getClient_id());
+                    }).findFirst().get();
+                    temp.setApproved(data.isApproved());
+                    temp.setTable_id(data.getTable_id());
+                    temp.setTime(data.getTime());
+                }
+
+                @Override
+                public void onDataRemoved(Request data) {
+                    TableNotificationData temp = tableView.getItems().stream().filter(tableData -> {
+                        return tableData.client_id.equals(data.getClient_id());
+                    }).findFirst().get();
+                    tableView.getItems().remove(temp);
+                }
+
+                @Override
+                public void onDataAdded(Request data) {
+                    tableView.getItems().add(fromRequestToTableDataObject(data));
+                }
+            });
+        }else{
+            List<Request> requestsData = DataHolder.requests.getAll();
+            if (requestsData!=null) {
+                List<TableNotificationData> tableData = new ArrayList<TableNotificationData>();
+                requestsData.forEach(request -> {
+                    tableData.add(fromRequestToTableDataObject(request));
+                });
+
+                ObservableList<TableNotificationData> data = FXCollections.observableList(tableData);
+                // set data for begin:
+                tableView.setItems(data);
+
+            }
+        }
     }
 
 }

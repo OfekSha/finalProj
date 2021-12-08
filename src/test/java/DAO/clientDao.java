@@ -12,10 +12,7 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class clientDao implements DAO<Client> {
     Set<Client> clients=new HashSet<Client>();
@@ -69,6 +66,26 @@ public class clientDao implements DAO<Client> {
 
     @Override
     public void delete(Client client) {
+
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onDataChanged(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void onDataRemoved(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void onDataAdded(Map<String, Object> data) {
 
     }
 }

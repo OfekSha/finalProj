@@ -1,5 +1,7 @@
 package application.entities;
 
+import java.util.Objects;
+
 public class Request {
 
         private String client_id,time;
@@ -46,5 +48,18 @@ public class Request {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Request)) return false;
+        Request request = (Request) o;
+        return getClient_id().equals(request.getClient_id());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getClient_id());
     }
 }

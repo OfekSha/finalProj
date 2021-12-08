@@ -1,10 +1,8 @@
 package application.controller;
 
-import java.util.Map;
-
-public interface FireStoreListener {
+public interface FireStoreListener <T>{
     public void onFailed();
-    public void onDataChanged(Map<String, Object> data);
-    public void onDataRemoved(Map<String, Object> data);
-    public void onDataAdded(Map<String, Object> data);
+    public void onDataChanged(T data);
+    public void onDataRemoved(T data);
+    public void onDataAdded(T data);
 }

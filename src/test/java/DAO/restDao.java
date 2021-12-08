@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class restDao implements DAO<Restaurant> {
@@ -110,5 +111,25 @@ public class restDao implements DAO<Restaurant> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onDataChanged(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void onDataRemoved(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public void onDataAdded(Map<String, Object> data) {
+
     }
 }
