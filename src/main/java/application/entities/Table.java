@@ -82,4 +82,9 @@ public class Table {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return ""+id;
+    }
 }

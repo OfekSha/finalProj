@@ -81,8 +81,7 @@
                       <right>
                           <VBox prefHeight="472.0" prefWidth="80.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                               <children>
-                                  <VBox id="vbox_edit_menu" fx:id="vbox_edit_menu" prefHeight="432.0" prefWidth="86.0" />
-                                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Save" />
+                                  <VBox id="vbox_edit_menu" fx:id="vbox_edit_menu" />
                               </children>
                           </VBox>
                       </right>

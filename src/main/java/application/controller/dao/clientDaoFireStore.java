@@ -3,8 +3,11 @@ package application.controller.dao;
 import application.DataHolder;
 import application.controller.FireStoreConnection;
 import application.controller.FireStoreListener;
+import application.controller.tabs.ModelController;
 import application.entities.Restaurant;
+import application.entities.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,6 +30,7 @@ public class clientDaoFireStore implements DAO<Restaurant> {
             if (restaurant != null) {
                 DataHolder.rest_id = id;
                 restaurant.setId(id);
+                restaurant.setTables(db.getDataById("tables",id ,"data",new ArrayList<Table>()));
             }
             return Optional.ofNullable(restaurant);
         } catch (ExecutionException e) {
@@ -61,6 +65,18 @@ public class clientDaoFireStore implements DAO<Restaurant> {
 
     @Override
     public void update(Restaurant restaurant, String[] params) {
+        if (params!=null)
+        if (params[0].equals("tables")){
+            restaurant.getTables();
+            //db.updateData("Restaurants",DataHolder.rest_id,"tables",restaurant.getTables());
+            try {
+                db.updateData("Restaurants", DataHolder.rest_id, restaurant);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             db.updateData("Restaurants", DataHolder.rest_id, restaurant);
         } catch (ExecutionException e) {
@@ -82,7 +98,9 @@ public class clientDaoFireStore implements DAO<Restaurant> {
 
     @Override
     public void onDataChanged(Map<String, Object> data) {
-
+        if (listener instanceof ModelController){
+            listener.onDataChanged(data.get("tables"));
+        }
     }
 
     @Override

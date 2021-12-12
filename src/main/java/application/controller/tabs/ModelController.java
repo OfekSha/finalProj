@@ -1,6 +1,7 @@
 package application.controller.tabs;
 
 import application.DataHolder;
+import application.controller.FireStoreListener;
 import application.entities.Table;
 import gui.controller.cellController;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ModelController {
+public class ModelController implements FireStoreListener<Table> {
 
     //Tab modelTab;
     GridPane modelTable;
@@ -28,6 +29,7 @@ public class ModelController {
             rows.set(restaurant.getModel_width());
         });
         setModel(rows.get(),cols.get(), tables);
+        DataHolder.restaurant.connectLiveData(this);
 
     }
     public void showTablesByTime(String time){
@@ -43,7 +45,12 @@ public class ModelController {
             if (node instanceof cellController){
                 cellController cell = (cellController) node;
                if (!cell.isHide()){
-                   tables.add(new Table(Integer.parseInt(cell.getTableNumber()),Integer.parseInt(cell.getSeats()),cell.isSmoke(),true,cell.getX(),cell.getY()));
+                   try {
+                       tables.add(new Table(Integer.parseInt(cell.getTableNumber()), Integer.parseInt(cell.getSeats()), cell.isSmoke(), true, cell.getX(), cell.getY()));
+                   }
+                   catch (NumberFormatException e){
+                       e.printStackTrace();
+                   }
                }
             }
         }
@@ -130,4 +137,27 @@ public class ModelController {
         }
     }
 
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onDataChanged(Table data) {
+        getCellOfTable(data).setTableNumber(String.valueOf(data.getId()));
+        getCellOfTable(data).setIsSmoke(data.isSmoke());
+        getCellOfTable(data).setSeats(String.valueOf(data.getSeats()));
+    }
+
+    @Override
+    public void onDataRemoved(Table data) {
+
+    }
+
+    @Override
+    public void onDataAdded(Table data) {
+        getCellOfTable(data).setTableNumber(String.valueOf(data.getId()));
+        getCellOfTable(data).setIsSmoke(data.isSmoke());
+        getCellOfTable(data).setSeats(String.valueOf(data.getSeats()));
+    }
 }

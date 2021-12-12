@@ -90,25 +90,50 @@ public class FireStoreConnection {
     public void updateData(String collection, String document, Object data) throws ExecutionException, InterruptedException {
 
         DocumentReference docRef = db.collection(collection).document(document);
-        Map<String, Object> map = fromObjectToMap(data);
-        ApiFuture<WriteResult> result = docRef.set(map);
-        while (!result.isDone()) {
+        ApiFuture res = addData(docRef, data);
+        while (!res.isDone()) {
+        }
+    }
+    public void updateData(String collection1, String document,String collection2,String target, Object data) throws ExecutionException, InterruptedException {
+
+        DocumentReference docRef = db.collection(collection1).document(document).collection(collection2).document(target);
+        ApiFuture res = addData(docRef, data);
+        while (!res.isDone()) {
         }
     }
 
     public String addDataRes(String collection, Object data) throws ExecutionException, InterruptedException {
-        Map<String, Object> map = fromObjectToMap(data);
-        ApiFuture<DocumentReference> result = db.collection(collection).add(map);
-        while (!result.isDone()) {
+        //Map<String, Object> map = fromObjectToMap(data);
+        //ApiFuture<DocumentReference> result = db.collection(collection).add(map);
+        DocumentReference doc = db.collection(collection).add(null).get();
+        ApiFuture res = addData(doc, data);
+        while (!res.isDone()) {
         }
-        return result.get().getId();
+        return doc.getId();
     }
     public boolean addDataRes(String collection1,String document,String collection2,String target,Object data ) throws ExecutionException, InterruptedException {
-        Map<String, Object> map = fromObjectToMap(data);
-        ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(target).set(map);
-        while (!result.isDone()) {
+        //Map<String, Object> map = fromObjectToMap(data);
+        //ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(target).set(map);
+        DocumentReference doc = db.collection(collection1).document(document).collection(collection2).document(target);
+
+        ApiFuture res = addData(doc, data);
+        while (!res.isDone()) {
         }
         return true;
+    }
+    private ApiFuture addData(DocumentReference doc,Object data){
+        Map<String, Object> map = fromObjectToMap(data);
+        Object obj = map.get("collections");
+        if (obj != null){
+            HashMap<String, Object> collections= (HashMap<String, Object>) obj;
+            map.remove("collections");
+            ApiFuture<WriteResult> result = doc.set(map);
+            collections.forEach((key,val)->{
+                doc.collection("data").document(key).set(val);
+            });
+            return result;
+        }
+        return doc.set(map);
     }
     public void connectListenerToData(String doc, String coll, DAO listener) {
         CollectionReference colRef = db.collection("Restaurants").document(doc).collection(coll);
@@ -155,11 +180,11 @@ public class FireStoreConnection {
         while (!future.isDone()) ;
         return fromMapToObject(future.get().getData(),output);
     }
-    public <T> List<T> getAllData(String document,String collection,T output) throws ExecutionException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public <T> ArrayList<T> getAllData(String document,String collection,T output) throws ExecutionException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         ApiFuture<QuerySnapshot> future = db.collection("Restaurants").document(document).collection(collection).get();
         future.get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List listObjects=new ArrayList<T>();
+        ArrayList listObjects=new ArrayList<T>();
         for (QueryDocumentSnapshot doc : documents) {
             listObjects.add(fromMapToObject(doc.getData(),output.getClass().getConstructor().newInstance()));
         }
@@ -173,9 +198,21 @@ public class FireStoreConnection {
         DocumentReference docRef = db.collection("Restaurants").document(id);
         return getDataById(docRef,output);
     }
-
     public Map<String, Object> fromObjectToMap(Object obj) {
         Map<String, Object> map = new HashMap<>();
+        Map<String,Object> collections=new HashMap<>();
+        if (obj instanceof ArrayList){
+                //map.put(((ArrayList) obj).get(0).getClass().getName(),obj);
+            ((ArrayList) obj).forEach(e -> {
+                ArrayList arrayList= (ArrayList) map.get(e.getClass().getSimpleName());
+                if (arrayList==null) {
+                    arrayList=new ArrayList();
+                    map.put(e.getClass().getSimpleName(),arrayList);
+                }
+                arrayList.add(e);
+            });
+            return map;
+        }
         for (Field field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
@@ -190,6 +227,9 @@ public class FireStoreConnection {
                         hashMap.put(e.getClass().getSimpleName(), fromObjectToMap(e));
                     });
                 } else if (object instanceof ArrayList) {
+                    map.put("collections",collections);
+                    collections.put(field.getName(),fromObjectToMap(object));
+                    /* // without collections:
                     ArrayList arrayList;
                     map.put(field.getName(),arrayList =  new ArrayList());
                     ArrayList hashSet = (ArrayList) object;
@@ -198,6 +238,7 @@ public class FireStoreConnection {
                         arrayList.add(hashMap=new HashMap());
                         hashMap.put(e.getClass().getSimpleName(), fromObjectToMap(e));
                     });
+                    */
                 }else map.put(field.getName(), field.get(obj));
             } catch (Exception e) {
             }
@@ -210,6 +251,27 @@ public class FireStoreConnection {
          tables
         */
         if (map==null) return output;
+        if (output instanceof ArrayList){
+            map.forEach((key,val)->{
+                ((ArrayList)val).forEach(el->{
+                    try {
+                        Class<?> clazz = Class.forName("application.entities."+(String)key);
+                        Constructor<?> ctor = clazz.getConstructor();
+                        Object object = ctor.newInstance();
+                        ((ArrayList) output).add(fromMapToObject((HashMap)el,object));
+                    } catch (ClassNotFoundException | NoSuchMethodException ex) {
+                        ex.printStackTrace();
+                    } catch (InvocationTargetException invocationTargetException) {
+                        invocationTargetException.printStackTrace();
+                    } catch (InstantiationException instantiationException) {
+                        instantiationException.printStackTrace();
+                    } catch (IllegalAccessException illegalAccessException) {
+                        illegalAccessException.printStackTrace();
+                    }
+
+                });
+            });
+        }
         for (Field field : output.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
