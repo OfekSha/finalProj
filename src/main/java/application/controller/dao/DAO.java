@@ -16,7 +16,7 @@ public interface DAO <T> {
 
     void connectLiveData(FireStoreListener listener);
 
-    void update(T t, String[] params);
+    void update(T t, boolean[] params);
 
     void delete(T t);
 

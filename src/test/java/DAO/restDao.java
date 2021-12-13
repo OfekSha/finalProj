@@ -90,7 +90,7 @@ public class restDao implements DAO<Restaurant> {
     }
 
     @Override
-    public void update(Restaurant restaurant, String[] params) {
+    public void update(Restaurant restaurant, boolean[] params) {
         rest=restaurant;
         try {
             Writer writer = Files.newBufferedWriter(Paths.get("rest_test_data.json"));

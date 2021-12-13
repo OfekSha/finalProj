@@ -49,7 +49,7 @@ public class clientDaoFireStore implements DAO<Restaurant> {
     @Override
     public void save(Restaurant restaurant) {
         try {
-            DataHolder.rest_id = db.addDataRes("Restaurants", restaurant);
+            DataHolder.rest_id = db.addData(null, restaurant);
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -64,13 +64,15 @@ public class clientDaoFireStore implements DAO<Restaurant> {
     }
 
     @Override
-    public void update(Restaurant restaurant, String[] params) {
-        if (params!=null)
-        if (params[0].equals("tables")){
+    public void update(Restaurant restaurant, boolean[] params) {
+        // params[0] - update restaurant general data.
+        // params[1] - update tables in restaurant.
+        if (params==null) params=new boolean[]{true,true};
+        if (params[1]){
             restaurant.getTables();
             //db.updateData("Restaurants",DataHolder.rest_id,"tables",restaurant.getTables());
             try {
-                db.updateData("Restaurants", DataHolder.rest_id, restaurant);
+                db.addData(DataHolder.rest_id,"data","tables", restaurant.getTables());
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -78,7 +80,8 @@ public class clientDaoFireStore implements DAO<Restaurant> {
             }
         }
         try {
-            db.updateData("Restaurants", DataHolder.rest_id, restaurant);
+            if (params[0])
+            db.addData(DataHolder.rest_id, restaurant);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

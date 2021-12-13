@@ -60,7 +60,7 @@ public class clientDao implements DAO<Client> {
     }
 
     @Override
-    public void update(Client client, String[] params) {
+    public void update(Client client, boolean[] params) {
 
     }
 

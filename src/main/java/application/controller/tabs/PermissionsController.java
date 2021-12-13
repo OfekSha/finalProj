@@ -92,7 +92,7 @@ public class PermissionsController {
                     DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant -> {
                         restaurant.getEmployee().clear();
                         restaurant.getEmployee().addAll(getListOfClients(tableData));
-                        DataHolder.restaurant.update(restaurant,null);
+                        DataHolder.restaurant.update(restaurant,new boolean[]{true,false});
                     });
             }
         });

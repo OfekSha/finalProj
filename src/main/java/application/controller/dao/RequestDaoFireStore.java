@@ -5,6 +5,7 @@ import application.controller.FireStoreConnection;
 import application.controller.FireStoreListener;
 import application.entities.Request;
 import application.entities.Restaurant;
+import application.entities.Table;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalTime;
@@ -18,41 +19,52 @@ public class RequestDaoFireStore implements DAO<Request> {
     private FireStoreConnection db = FireStoreConnection.getDB();
     private  FireStoreListener<Request> listener;
     private  ArrayList<Request> tempRequests=new ArrayList<Request>();
+    private Thread backgroundTimerThread;
     private  LocalTime now=LocalTime.now();
-    public void setListener(FireStoreListener listener) {
-        this.listener = listener;
-    }
-
-    private void automateRequests(){
-        Thread ticks=new Thread(new Runnable() {
+    private void automateRequests(boolean on){
+        if (backgroundTimerThread!=null) backgroundTimerThread.interrupt();
+        if (!on) {
+            backgroundTimerThread=null;
+            return;
+        }
+        backgroundTimerThread=new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
+                while(!Thread.currentThread().isInterrupted()){
                     try {
                         Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                        now=LocalTime.now();
-                        if (tempRequests!=null)
-                            if(!tempRequests.isEmpty())
-                        tempRequests.forEach(el->{
-                            if (!el.getTime().equals("no time"))
-                            if (LocalTime.parse(el.getTime()).isBefore(now.minusHours(2))){ // release table if 2 hours over.
-                                el.setApproved(false);
-                                update(el,null);
+                        now = LocalTime.now();
+                        if (tempRequests != null)
+                            if (!tempRequests.isEmpty()) {
                                 Restaurant rest = DataHolder.restaurant.get(DataHolder.rest_id).get();
-                                rest.getTables().stream().filter(table->{
-                                    return table.getId()==el.getTable_id();
-                                }).findFirst().get().getIsFreeByTime().put(el.getTime(),true);
-                                DataHolder.restaurant.update(rest,null);
+                                ArrayList<Table> tableWithOutRequests= (ArrayList<Table>) rest.getTables().clone();
+                                tempRequests.forEach(el -> {
+                                    if (!el.getTime().equals("no time")) {
+                                        Table tbl = tableWithOutRequests.stream().filter(table -> {
+                                            return table.getId() == el.getTable_id();
+                                        }).findFirst().get();
+                                        tableWithOutRequests.remove(tbl);
+                                        if (LocalTime.parse(el.getTime()).isBefore(now.minusHours(2))) { // release table if 2 hours over.
+                                            el.setApproved(false);
+                                            update(el, null);
+                                            tbl.getIsFreeByTime().put(el.getTime(), true);
+                                        }
+                                    }
+                                });
+                                tableWithOutRequests.forEach(tblWithOutRequest->{
+                                    tblWithOutRequest.setFreeToAllTime(true);
+                                    tblWithOutRequest.setFree(true);
+                                });
+                                DataHolder.restaurant.update(rest, new boolean[]{false,true});
                             }
-                        });
-
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
             }
         });
-        ticks.start();
+        backgroundTimerThread.start();
     }
     @Override
     public Optional<Request> get(String id) {
@@ -96,40 +108,26 @@ public class RequestDaoFireStore implements DAO<Request> {
 
     @Override
     public void save(Request request) {
-        try {
-            db.addDataRes("Restaurants",  DataHolder.rest_id,"requests",request.getClient_id(),request);
-            if (request.isApproved()){
-                Restaurant rest = DataHolder.restaurant.get(DataHolder.rest_id).get();
-                rest.getTables().stream().filter(table->{
-                    return table.getId()==request.getTable_id();
-                }).findFirst().get().getIsFreeByTime().put(request.getTime(),false);
-                DataHolder.restaurant.update(rest,null);
-            }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       update(request,null);
     }
 
     @Override
     public void connectLiveData(FireStoreListener listener) {
-        db.connectListenerToData(DataHolder.rest_id,"requests", this);
         this.listener = listener;
-        automateRequests();
+        db.connectListenerToData(DataHolder.rest_id,"requests", this);
+        automateRequests(DataHolder.isAutoApprove);
     }
 
     @Override
-    public void update(Request request, String[] params) {
+    public void update(Request request, boolean[] params) {
         try {
-            db.addDataRes("Restaurants",  DataHolder.rest_id,"requests",request.getClient_id(),request);
-            if (request.isApproved()){
-                Restaurant rest = DataHolder.restaurant.get(DataHolder.rest_id).get();
-                rest.getTables().stream().filter(table->{
-                    return table.getId()==request.getTable_id();
-                }).findFirst().get().getIsFreeByTime().put(request.getTime(),false);
-                DataHolder.restaurant.update(rest,null);
-            }
+            db.addData(DataHolder.rest_id, "requests", request.getClient_id(), request);
+            Restaurant rest = DataHolder.restaurant.get(DataHolder.rest_id).get();
+            rest.getTables().stream().filter(table -> {
+                return table.getId() == request.getTable_id();
+            }).findFirst().get().getIsFreeByTime().put(request.getTime(), !request.isApproved());
+            DataHolder.restaurant.update(rest, new boolean[]{false, true});
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

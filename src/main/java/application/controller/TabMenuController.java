@@ -78,10 +78,10 @@ public class TabMenuController implements Initializable {
     private Tab model1;
 
     @FXML
+    private VBox vbox_model_view_buttons;
+    @FXML
     private GridPane modelTable;
 
-    @FXML
-    private MenuButton mb_time;
 
     // notification tab:
     @FXML
@@ -110,19 +110,12 @@ public class TabMenuController implements Initializable {
                 tabs.remove(chat);
             case Hostess:
                 tabs.remove(options);
+                DataHolder.isAutoApprove=true; // only hostess and waiter.
             case Manager:
                 tabs.remove(permissions);
                 tabs.remove(modelEdit);
             case Owner:
-                modelController=new ModelController(modelTable);
-                mb_time.getItems().clear();
-                XMLReader.getTimeArray().forEach(el->{
-                    MenuItem item = new MenuItem(el);
-                    item.setOnAction(event->{
-                        modelController.showTablesByTime(el);
-                    });
-                    mb_time.getItems().add(item);
-                });
+                modelController=new ModelController(modelTable,vbox_model_view_buttons);
                 if (p==Permission.Waiter) break;
                 new ModelEditorController(vbox_edit_menu,modelEditTable);
                 NotificationsController nController= new NotificationsController(tableView_notifications,buttons_notifications);

@@ -2,14 +2,23 @@ package application.controller.tabs;
 
 import application.DataHolder;
 import application.controller.FireStoreListener;
+import application.controller.XMLReader;
+import application.entities.Request;
 import application.entities.Table;
 import gui.controller.cellController;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -31,6 +40,42 @@ public class ModelController implements FireStoreListener<Table> {
         setModel(rows.get(),cols.get(), tables);
         DataHolder.restaurant.connectLiveData(this);
 
+    }
+    public ModelController(GridPane modelTable, Pane buttons) {
+        this(modelTable);
+        Button order=new Button("Order");
+        order.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                cellController cell=cellController.getSelectedCell();
+                //TODO: check this not happen twice when reading data.
+                cell.setIsAvailable(false);
+                DataHolder.requests.save(new Request("host "+cell.getTableNumber(), Long.parseLong(cell.getTableNumber()), LocalTime.now().toString(), true));
+            }
+        });
+        Button cancel=new Button("Cancel");
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                cellController cell=cellController.getSelectedCell();
+                DataHolder.requests.get("host "+cell.getId()).ifPresent(request->{
+                    //TODO: check this not happen twice when reading data.
+                    cell.setIsAvailable(true);
+                    DataHolder.requests.save(new Request("host "+cell.getTableNumber(), Long.parseLong(cell.getTableNumber()), LocalTime.now().toString(), false));
+                });
+
+            }
+        });
+        MenuButton mb_time=new MenuButton("Time");
+        mb_time.getItems().clear();
+        XMLReader.getTimeArray().forEach(el->{
+            MenuItem item = new MenuItem(el);
+            item.setOnAction(event->{
+                showTablesByTime(el);
+            });
+            mb_time.getItems().add(item);
+        });
+        buttons.getChildren().addAll(mb_time,order,cancel);
     }
     public void showTablesByTime(String time){
         DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant->{

@@ -105,7 +105,6 @@ public class NotificationsController{
     public NotificationsController(TableView<TableNotificationData> table, Pane buttons) {
         tableView = table;
         this.buttons = buttons;
-        //TODO: fix init to be for notifications
        if (table !=null)
             initRequestsTable();
 
@@ -135,9 +134,9 @@ public class NotificationsController{
                                 }
                             }
                         });
-                        DataHolder.restaurant.update(restaurant,null);
+                        DataHolder.restaurant.update(restaurant,new boolean[]{false,true});
                     });
-                    DataHolder.restaurant.update(restaurant, null);
+                    DataHolder.restaurant.update(restaurant, new boolean[]{false,true});
                 });
             }
         });

@@ -32,7 +32,7 @@ public class ModelEditorController {
                 DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant -> {
                     restaurant.getTables().clear();
                     restaurant.getTables().addAll(modelGrid.getAllTables());
-                    DataHolder.restaurant.update(restaurant, null);
+                    DataHolder.restaurant.update(restaurant, new boolean[]{false,true});
                 });
 
             }

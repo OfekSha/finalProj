@@ -20,21 +20,11 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class FireStoreConnection {
-
-    // Data is object that will use to save data and build map.
-    public class Data {
-        private String name;
-        private Object data;
-
-        public Data(String name, Object data) {
-            this.name = name;
-            this.data = data;
-        }
-    }
-
-
-    private CollectionReference docRef;
+    private static final String restCol="Restaurants";
     private Firestore db;
+    private ListenerRegistration liveUpdate;
+    static FireStoreConnection connection;
+
 
     private FireStoreConnection() throws IOException {
         try {
@@ -44,9 +34,16 @@ public class FireStoreConnection {
         }
     }
 
-    static FireStoreConnection connection;
 
-    // singleton:
+    // return the collection of restaurants
+    private CollectionReference getMainCol(){
+        return db.collection(restCol);
+    }
+
+    /**
+     * 
+     * @return {@link FireStoreConnection} - singleton object that use Firestore api for read/write and connect to Firestore database.
+     */
     static public FireStoreConnection getDB() {
         if (connection!=null) return connection;
         try {
@@ -69,52 +66,47 @@ public class FireStoreConnection {
         db = FirestoreClient.getFirestore();
     }
 
-    private int resCounter = 2;
-
-
-    public void addDataRes(String collection, String document, Data... data) throws ExecutionException, InterruptedException {
-        DocumentReference docRef = db.collection(collection).document(document);
-        Map<String, Object> map = new HashMap<>();
-        for (Data d : data) {
-            map.put(d.name, d.data);
-        }
-        ApiFuture<WriteResult> result = docRef.set(map);
-        while (!result.isDone()) {
-        }
-    }
     public void deleteData(String collection1, String document, String collection2,String id) throws ExecutionException, InterruptedException {
         ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(id).delete();
         while(!result.isDone());
 
     }
-    public void updateData(String collection, String document, Object data) throws ExecutionException, InterruptedException {
 
-        DocumentReference docRef = db.collection(collection).document(document);
-        ApiFuture res = addData(docRef, data);
-        while (!res.isDone()) {
+    /**
+     * 
+     * @param target - the target document id to be change. if null generate id and create new document.
+     * @param data - the data that change inside the target.
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public String addData(String target, Object data) throws ExecutionException, InterruptedException {
+        DocumentReference doc;
+        if (target==null){
+             doc = getMainCol().add(null).get();
         }
-    }
-    public void updateData(String collection1, String document,String collection2,String target, Object data) throws ExecutionException, InterruptedException {
-
-        DocumentReference docRef = db.collection(collection1).document(document).collection(collection2).document(target);
-        ApiFuture res = addData(docRef, data);
-        while (!res.isDone()) {
-        }
-    }
-
-    public String addDataRes(String collection, Object data) throws ExecutionException, InterruptedException {
-        //Map<String, Object> map = fromObjectToMap(data);
-        //ApiFuture<DocumentReference> result = db.collection(collection).add(map);
-        DocumentReference doc = db.collection(collection).add(null).get();
+        else  doc = getMainCol().document(target);
         ApiFuture res = addData(doc, data);
         while (!res.isDone()) {
         }
         return doc.getId();
     }
-    public boolean addDataRes(String collection1,String document,String collection2,String target,Object data ) throws ExecutionException, InterruptedException {
-        //Map<String, Object> map = fromObjectToMap(data);
-        //ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(target).set(map);
-        DocumentReference doc = db.collection(collection1).document(document).collection(collection2).document(target);
+    /**
+     *
+     * @param target - the target document id to be change. if null generate id and create new document.
+     * @param data - the data that change inside the target.
+     * @param collection - the collection inside the document.
+     * @param document - the document that hold collection.
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public boolean addData(String document,String collection,String target,Object data ) throws ExecutionException, InterruptedException {
+        DocumentReference doc;
+        if (target==null){
+            doc = getMainCol().document(document).collection(collection).add(null).get();
+        }
+        else  doc=getMainCol().document(document).collection(collection).document(target);
 
         ApiFuture res = addData(doc, data);
         while (!res.isDone()) {
@@ -135,9 +127,20 @@ public class FireStoreConnection {
         }
         return doc.set(map);
     }
+    public void stopLiveUpdate(){
+        liveUpdate.remove();
+    }
+
+    /**
+     * connect listener to update gui when data in Firestore change (live update). 
+     * @param doc
+     * @param coll
+     * @param listener
+     */
     public void connectListenerToData(String doc, String coll, DAO listener) {
-        CollectionReference colRef = db.collection("Restaurants").document(doc).collection(coll);
-        colRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        if (liveUpdate!=null) liveUpdate.remove(); // TODO: array of liveUpdate (restaurant + requests)
+        CollectionReference colRef = getMainCol().document(doc).collection(coll);
+        liveUpdate = colRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirestoreException e) {
                 if (e != null) {
@@ -145,7 +148,7 @@ public class FireStoreConnection {
                     return;
                 }
 
-                for (DocumentChange  dc : snapshots.getDocumentChanges()) {
+                for (DocumentChange dc : snapshots.getDocumentChanges()) {
                     switch (dc.getType()) {
                         case ADDED:
                             //System.out.println("New city: " + dc.getDocument().getData());
@@ -165,6 +168,7 @@ public class FireStoreConnection {
                 }
             }
         });
+
     }
     private <T> T getDataById(DocumentReference docRef,T output) throws ExecutionException, InterruptedException {
         // asynchronously retrieve the document
@@ -181,7 +185,7 @@ public class FireStoreConnection {
         return fromMapToObject(future.get().getData(),output);
     }
     public <T> ArrayList<T> getAllData(String document,String collection,T output) throws ExecutionException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        ApiFuture<QuerySnapshot> future = db.collection("Restaurants").document(document).collection(collection).get();
+        ApiFuture<QuerySnapshot> future = getMainCol().document(document).collection(collection).get();
         future.get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         ArrayList listObjects=new ArrayList<T>();
@@ -191,18 +195,17 @@ public class FireStoreConnection {
         return listObjects;
     }
     public <T> T getDataById(String id,String document,String collection,T output) throws ExecutionException, InterruptedException {
-        DocumentReference docRef = db.collection("Restaurants").document(document).collection(collection).document(id);
+        DocumentReference docRef = getMainCol().document(document).collection(collection).document(id);
         return getDataById(docRef,output);
     }
     public <T> T getDataById(String id,T output) throws ExecutionException, InterruptedException {
-        DocumentReference docRef = db.collection("Restaurants").document(id);
+        DocumentReference docRef = getMainCol().document(id);
         return getDataById(docRef,output);
     }
     public Map<String, Object> fromObjectToMap(Object obj) {
         Map<String, Object> map = new HashMap<>();
         Map<String,Object> collections=new HashMap<>();
         if (obj instanceof ArrayList){
-                //map.put(((ArrayList) obj).get(0).getClass().getName(),obj);
             ((ArrayList) obj).forEach(e -> {
                 ArrayList arrayList= (ArrayList) map.get(e.getClass().getSimpleName());
                 if (arrayList==null) {
@@ -227,8 +230,11 @@ public class FireStoreConnection {
                         hashMap.put(e.getClass().getSimpleName(), fromObjectToMap(e));
                     });
                 } else if (object instanceof ArrayList) {
+                    // array list not added to the database.
+                    /* // with collection:
                     map.put("collections",collections);
                     collections.put(field.getName(),fromObjectToMap(object));
+                    */
                     /* // without collections:
                     ArrayList arrayList;
                     map.put(field.getName(),arrayList =  new ArrayList());

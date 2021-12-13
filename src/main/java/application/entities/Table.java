@@ -34,6 +34,12 @@ public class Table {
     public void setIsFreeByTime(HashMap<String, Boolean> isFreeByTime) {
         this.isFreeByTime = isFreeByTime;
     }
+    public void setFreeToAllTime(boolean free){
+        if(free) isFree=true;
+        isFreeByTime.replaceAll((k,v)->{
+            return free;
+        });
+    }
 
     public int getId() {
         return id;
