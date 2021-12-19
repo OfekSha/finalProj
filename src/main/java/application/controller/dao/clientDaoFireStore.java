@@ -7,10 +7,7 @@ import application.controller.tabs.ModelController;
 import application.entities.Restaurant;
 import application.entities.Table;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class clientDaoFireStore implements DAO<Restaurant> {
@@ -102,7 +99,10 @@ public class clientDaoFireStore implements DAO<Restaurant> {
     @Override
     public void onDataChanged(Map<String, Object> data) {
         if (listener instanceof ModelController){
-            listener.onDataChanged(data.get("tables"));
+            ((ArrayList)data.get("Table")).forEach(tbl->{
+                listener.onDataChanged(db.fromMapToObject((HashMap)tbl,new Table()));
+            });
+
         }
     }
 

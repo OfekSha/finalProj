@@ -139,7 +139,7 @@ public class RequestDaoFireStore implements DAO<Request> {
     public void delete(Request request) {
         //TODO: implement delete
         try {
-            db.deleteData("Restaurants",DataHolder.rest_id,"requests",request.getClient_id());
+            db.deleteData(DataHolder.rest_id,"requests",request.getClient_id());
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

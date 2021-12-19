@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -22,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class FireStoreConnection {
     private static final String restCol="Restaurants";
     private Firestore db;
+    private final HashMap<DAO,ListenerRegistration> liveUpdateListeners= new HashMap<>();
     private ListenerRegistration liveUpdate;
     static FireStoreConnection connection;
 
@@ -66,8 +68,8 @@ public class FireStoreConnection {
         db = FirestoreClient.getFirestore();
     }
 
-    public void deleteData(String collection1, String document, String collection2,String id) throws ExecutionException, InterruptedException {
-        ApiFuture<WriteResult> result = db.collection(collection1).document(document).collection(collection2).document(id).delete();
+    public void deleteData( String document, String collection2,String id) throws ExecutionException, InterruptedException {
+        ApiFuture<WriteResult> result =getMainCol().document(document).collection(collection2).document(id).delete();
         while(!result.isDone());
 
     }
@@ -83,7 +85,7 @@ public class FireStoreConnection {
     public String addData(String target, Object data) throws ExecutionException, InterruptedException {
         DocumentReference doc;
         if (target==null){
-             doc = getMainCol().add(null).get();
+             doc = (DocumentReference) getMainCol().add(new HashMap()).get();
         }
         else  doc = getMainCol().document(target);
         ApiFuture res = addData(doc, data);
@@ -138,9 +140,13 @@ public class FireStoreConnection {
      * @param listener
      */
     public void connectListenerToData(String doc, String coll, DAO listener) {
-        if (liveUpdate!=null) liveUpdate.remove(); // TODO: array of liveUpdate (restaurant + requests)
+        ListenerRegistration lst = liveUpdateListeners.get(listener);
+        if (lst!=null){
+            lst.remove();
+            liveUpdateListeners.remove(listener);
+        }
         CollectionReference colRef = getMainCol().document(doc).collection(coll);
-        liveUpdate = colRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        lst = colRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirestoreException e) {
                 if (e != null) {
@@ -168,7 +174,7 @@ public class FireStoreConnection {
                 }
             }
         });
-
+        liveUpdateListeners.put(listener,lst);
     }
     private <T> T getDataById(DocumentReference docRef,T output) throws ExecutionException, InterruptedException {
         // asynchronously retrieve the document
@@ -279,7 +285,12 @@ public class FireStoreConnection {
             });
         }
         for (Field field : output.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
+            try {
+                field.setAccessible(true);
+            }
+            catch (InaccessibleObjectException e){
+                continue;
+            }
             try {
                 Object obj = map.get(field.getName());
                 if (obj==null) continue;

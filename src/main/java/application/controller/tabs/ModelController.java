@@ -189,9 +189,15 @@ public class ModelController implements FireStoreListener<Table> {
 
     @Override
     public void onDataChanged(Table data) {
-        getCellOfTable(data).setTableNumber(String.valueOf(data.getId()));
-        getCellOfTable(data).setIsSmoke(data.isSmoke());
-        getCellOfTable(data).setSeats(String.valueOf(data.getSeats()));
+        cellController cell = getCellOfTable(data);
+        if (cell==null){
+            throw new IndexOutOfBoundsException("cellController not exist in x= " + data.getX()+ " y= "+data.getY());
+        }else {
+            cell.setTableNumber(String.valueOf(data.getId()));
+            cell.setIsSmoke(data.isSmoke());
+            cell.setSeats(String.valueOf(data.getSeats()));
+            cell.setHide(false);
+        }
     }
 
     @Override
@@ -201,8 +207,6 @@ public class ModelController implements FireStoreListener<Table> {
 
     @Override
     public void onDataAdded(Table data) {
-        getCellOfTable(data).setTableNumber(String.valueOf(data.getId()));
-        getCellOfTable(data).setIsSmoke(data.isSmoke());
-        getCellOfTable(data).setSeats(String.valueOf(data.getSeats()));
+        onDataChanged(data);
     }
 }

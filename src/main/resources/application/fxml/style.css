@@ -12,7 +12,9 @@
 	-fx-background-color: #205aa7;
 }
 .text-field{
+-fx-text-fill: white;
 -fx-background-color: #205aa7;
+
 }
 
 .tab{
@@ -54,8 +56,8 @@
 
 }
 .button .text{
-	-fx-fill: white;
-	-fx-effect: dropshadow(gaussian ,#00ced1,1,1,0px,0px);
+	-fx-fill: #00ffff;
+	-fx-effect: dropshadow(gaussian ,#76b5b5,1,1,0px,0px);
 }
 .button:hover{
 	-fx-background-color:#048b8d;
@@ -75,4 +77,10 @@
 .avaible{
 -fx-effect: dropshadow(gaussian ,blue,1,1,0px,0px);
 -fx-background-color:#ffffffff;
+}
+.table-view .text{
+/*If it is an external font, you need to load it; @font-face {...} */
+-fx-text-fill: black;
+-fx-fill: black;
+-fx-effect: dropshadow(gaussian ,white,3,1,0px,0px);
 }

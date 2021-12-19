@@ -1,8 +1,9 @@
 package application;
 
+import application.controller.BaseFrameController;
+import application.controller.dao.RequestDaoFireStore;
+import application.controller.dao.clientDaoFireStore;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -15,20 +16,19 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("fxml/entrance.fxml"));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setMaximized(true);
-            primaryStage.setFullScreen(true);
+    public void start(Stage primaryStage) throws IOException {
+        initDataBase();
+        BaseFrameController root = new BaseFrameController();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        root.changeFrame("application/fxml/entrance.fxml");
+       // primaryStage.setMaximized(true);
+       // primaryStage.setFullScreen(true);
 
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+    }
+    private void initDataBase(){
+        DataHolder.restaurant = new clientDaoFireStore();
+        DataHolder.requests = new RequestDaoFireStore();
     }
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class XMLReader {
+
     public static ArrayList<String> getTimeArray(){
         ArrayList<String> output=new ArrayList<String>();
         String FILENAME = "application/xml/time_array.xml";
