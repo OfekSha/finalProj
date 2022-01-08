@@ -50,6 +50,7 @@ public class LoginController implements Initializable {
                 if (checkLogin(temp.get())) {
                     try {
                         BaseFrameController.instance.changeFrame("application/fxml/tabMenu.fxml");
+                        DataHolder.tempRest=rest;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

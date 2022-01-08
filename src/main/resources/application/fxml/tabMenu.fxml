@@ -22,10 +22,10 @@
       <tabs>
           <Tab fx:id="options" text="Options">
               <content>
-            <GridPane>
+            <GridPane fx:id="gridpane_options">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="20.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="65.0" />
                </columnConstraints>
                <rowConstraints>
@@ -46,7 +46,7 @@
                                   <Button mnemonicParsing="false" text="Close Res" />
                               </children>
                           </VBox>
-                              <Label graphicTextGap="0.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="res Name:" GridPane.columnIndex="1" />
+                              <Label graphicTextGap="0.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="vcx" GridPane.columnIndex="1" />
                               <TextField fx:id="tf_name" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="BP" GridPane.columnIndex="2" />
                               <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Choose tags:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <SplitMenuButton fx:id="smbtn_tags" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="tags" GridPane.columnIndex="2" GridPane.rowIndex="1">

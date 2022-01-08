@@ -19,6 +19,7 @@ public interface DAO <T> {
     void update(T t, boolean[] params);
 
     void delete(T t);
+    void deleteAll();
 
     // connect live to the data change:
     public void onFailed();

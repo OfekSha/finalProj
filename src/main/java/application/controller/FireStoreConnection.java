@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.DataHolder;
 import application.controller.dao.DAO;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -26,12 +27,24 @@ public class FireStoreConnection {
     private final HashMap<DAO,ListenerRegistration> liveUpdateListeners= new HashMap<>();
     private ListenerRegistration liveUpdate;
     static FireStoreConnection connection;
+    private static boolean error_version=false;
 
+    public boolean isError_version() {
+        return error_version;
+    }
 
     private FireStoreConnection() throws IOException {
         try {
             init();
-        } catch (FileNotFoundException e) {
+            // checks app version
+            ApiFuture<DocumentSnapshot> future = db.collection("MetaData").document("desktop").get();
+            DocumentSnapshot result = future.get();
+            if(!((String)result.get("version")).equals(DataHolder.version)){
+                error_version=true;
+            }
+            else  error_version=false;
+            while(!future.isDone());
+        } catch (FileNotFoundException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -115,19 +128,45 @@ public class FireStoreConnection {
         }
         return true;
     }
-    private ApiFuture addData(DocumentReference doc,Object data){
+    private ApiFuture addData(DocumentReference doc,Object data) throws ExecutionException, InterruptedException {
         Map<String, Object> map = fromObjectToMap(data);
         Object obj = map.get("collections");
         if (obj != null){
             HashMap<String, Object> collections= (HashMap<String, Object>) obj;
             map.remove("collections");
-            ApiFuture<WriteResult> result = doc.set(map);
+            ApiFuture<WriteResult> result = doc.update(map);
             collections.forEach((key,val)->{
                 doc.collection("data").document(key).set(val);
             });
             return result;
         }
-        return doc.set(map);
+        if (!doc.get().get().exists()){
+            return doc.set(map);
+        }
+       else  return doc.update(map);
+    }
+    /** Delete a collection in batches to avoid out-of-memory errors.
+     * Batch size may be tuned based on document size (atmost 1MB) and application requirements.
+     */
+    public void deleteAllDocs(String document,String collection){
+        try {
+            int batchSize=100;
+            // retrieve a small batch of documents to avoid out-of-memory errors
+            ApiFuture<QuerySnapshot> future = getMainCol().document(document).collection(collection).limit(batchSize).get();
+            int deleted = 0;
+            // future.get() blocks on document retrieval
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            for (QueryDocumentSnapshot doc : documents) {
+                doc.getReference().delete();
+                ++deleted;
+            }
+            if (deleted >= batchSize) {
+                // retrieve and delete another batch
+                deleteAllDocs(document,collection);
+            }
+        } catch (Exception e) {
+            System.err.println("Error deleting collection : " + e.getMessage());
+        }
     }
     public void stopLiveUpdate(){
         liveUpdate.remove();

@@ -12,11 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 public class clientDaoFireStore implements DAO<Restaurant> {
     private FireStoreConnection db = FireStoreConnection.getDB();
-    private FireStoreListener listener;
-
-    public void setListener(FireStoreListener listener) {
-        this.listener = listener;
-    }
+    private ArrayList <FireStoreListener> listener= new ArrayList();
 
     @Override
     public Optional<Restaurant> get(String id) {
@@ -26,6 +22,7 @@ public class clientDaoFireStore implements DAO<Restaurant> {
             restaurant = db.getDataById(id, restaurant);
             if (restaurant != null) {
                 DataHolder.rest_id = id;
+                DataHolder.tempRest=restaurant;
                 restaurant.setId(id);
                 restaurant.setTables(db.getDataById("tables",id ,"data",new ArrayList<Table>()));
             }
@@ -47,6 +44,8 @@ public class clientDaoFireStore implements DAO<Restaurant> {
     public void save(Restaurant restaurant) {
         try {
             DataHolder.rest_id = db.addData(null, restaurant);
+            restaurant.setId(DataHolder.rest_id);
+            update(restaurant, new boolean[]{true, false});
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -57,7 +56,8 @@ public class clientDaoFireStore implements DAO<Restaurant> {
 
     @Override
     public void connectLiveData(FireStoreListener listener) {
-        this.listener = listener;
+        this.listener.add(listener) ;
+        db.connectListenerToData(DataHolder.rest_id,"data", this);
     }
 
     @Override
@@ -92,18 +92,26 @@ public class clientDaoFireStore implements DAO<Restaurant> {
     }
 
     @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
     public void onFailed() {
 
     }
 
     @Override
     public void onDataChanged(Map<String, Object> data) {
-        if (listener instanceof ModelController){
-            ((ArrayList)data.get("Table")).forEach(tbl->{
-                listener.onDataChanged(db.fromMapToObject((HashMap)tbl,new Table()));
-            });
+        listener.forEach(listener -> {
+            if (listener instanceof ModelController){
+                ((ArrayList)data.get("Table")).forEach(tbl->{
+                    listener.onDataChanged(db.fromMapToObject((HashMap)tbl,new Table()));
+                });
 
-        }
+            }
+        });
+
     }
 
     @Override

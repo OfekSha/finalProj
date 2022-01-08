@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.DataHolder;
+import gui.controller.ILocationGetter;
 import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -24,7 +25,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class MapController extends AnchorPane implements Initializable {
-    private RegisterController register;
+    private ILocationGetter register;
     @FXML
     public SwingNode sn;
     @FXML
@@ -59,7 +60,7 @@ public class MapController extends AnchorPane implements Initializable {
         }
 
     }
-    public MapController(RegisterController register){
+    public MapController(ILocationGetter register){
         this();
         this.register=register;
     }

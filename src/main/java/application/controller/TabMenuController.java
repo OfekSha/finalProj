@@ -1,10 +1,7 @@
 package application.controller;
 
 import application.DataHolder;
-import application.controller.tabs.ModelController;
-import application.controller.tabs.ModelEditorController;
-import application.controller.tabs.NotificationsController;
-import application.controller.tabs.PermissionsController;
+import application.controller.tabs.*;
 import application.entities.Permission;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,7 +25,8 @@ public class TabMenuController implements Initializable {
     // options tab:
     @FXML
     private Tab options;
-
+    @FXML
+    private GridPane gridpane_options;
     @FXML
     private TextField tf_name;
 
@@ -121,6 +119,7 @@ public class TabMenuController implements Initializable {
                 NotificationsController nController= new NotificationsController(tableView_notifications,buttons_notifications);
                 if (p==Permission.Manager) break;
                 PermissionsController pController=new PermissionsController(tableView_permissions,hbox_buttons);
+                OptionsController optionTab= new OptionsController(gridpane_options);
                 break;
             default:
                 tabs.clear();

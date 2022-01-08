@@ -121,13 +121,24 @@ public class RequestDaoFireStore implements DAO<Request> {
     @Override
     public void update(Request request, boolean[] params) {
         try {
+            LocalTime requestTime = LocalTime.parse(request.getTime());
+            int hour=requestTime.getHour();
+            int minute=requestTime.getMinute();
+            if (minute>=0 && minute<=15) minute= 0;
+            else if (minute>15 && minute<=30) minute= 30;
+            else if (minute>30 && minute<=45) minute= 30;
+            else if (minute>45 && minute<=59) {
+                hour++;
+                minute= 0;
+            }
+            requestTime= LocalTime.of(hour,minute);
+            request.setTime(requestTime.toString());
             db.addData(DataHolder.rest_id, "requests", request.getClient_id(), request);
             Restaurant rest = DataHolder.restaurant.get(DataHolder.rest_id).get();
             rest.getTables().stream().filter(table -> {
                 return table.getId() == request.getTable_id();
             }).findFirst().get().getIsFreeByTime().put(request.getTime(), !request.isApproved());
             DataHolder.restaurant.update(rest, new boolean[]{false, true});
-
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -145,6 +156,11 @@ public class RequestDaoFireStore implements DAO<Request> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        db.deleteAllDocs(DataHolder.rest_id,"requests");
     }
 
     @Override

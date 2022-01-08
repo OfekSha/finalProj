@@ -114,6 +114,11 @@ public class restDao implements DAO<Restaurant> {
     }
 
     @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
     public void onFailed() {
 
     }

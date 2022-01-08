@@ -4,6 +4,7 @@ import application.DataHolder;
 import application.entities.Client;
 import application.entities.Permission;
 import application.entities.Restaurant;
+import gui.controller.ILocationGetter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class RegisterController implements Initializable {
+public class RegisterController implements Initializable, ILocationGetter {
     Restaurant temp_rest;
 
     @FXML
@@ -81,6 +82,7 @@ public class RegisterController implements Initializable {
 
 
     }
+    @Override
     public void setLocation(GeoPosition geo) {
             TF_Geo_Long.setText(geo.getLongitude()+"");
             TF_Geo_Lat.setText(geo.getLatitude()+"");

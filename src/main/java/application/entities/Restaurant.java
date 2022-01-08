@@ -20,6 +20,7 @@ public class Restaurant {
     private int model_height;
     private int model_width;
     private HashSet<Client> employee=new HashSet<Client>();
+    private boolean isAvailable=false;
     public Restaurant(){
         this(null,null,null,null,null,null,new GeoPosition(0,0),null);
     }
@@ -33,6 +34,14 @@ public class Restaurant {
         this.position = position;
         this.id = id;
         employee= new HashSet<Client>();
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public HashSet<Client> getEmployee() {

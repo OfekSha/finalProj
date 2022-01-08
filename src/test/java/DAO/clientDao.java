@@ -70,6 +70,11 @@ public class clientDao implements DAO<Client> {
     }
 
     @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
     public void onFailed() {
 
     }

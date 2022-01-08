@@ -1,6 +1,7 @@
 package application.controller.tabs;
 
 import application.DataHolder;
+import application.entities.Table;
 import gui.controller.cellController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ModelEditorController {
@@ -30,7 +32,8 @@ public class ModelEditorController {
             @Override
             public void handle(ActionEvent event) {
                 DataHolder.restaurant.get(DataHolder.rest_id).ifPresent(restaurant -> {
-                    restaurant.getTables().clear();
+                    if (restaurant.getTables()==null) restaurant.setTables(new ArrayList<Table>());
+                    else restaurant.getTables().clear();
                     restaurant.getTables().addAll(modelGrid.getAllTables());
                     DataHolder.restaurant.update(restaurant, new boolean[]{false,true});
                 });

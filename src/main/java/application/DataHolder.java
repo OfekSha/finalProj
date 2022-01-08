@@ -16,4 +16,5 @@ public class DataHolder {
     public static Restaurant tempRest = null;
     public static DAO<Request> requests = null;
     public static boolean isAutoApprove = false;
+    public static String version="1";
 }

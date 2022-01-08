@@ -6,16 +6,16 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class BaseFrameController extends GridPane {
+public class BaseFrameController extends GridPane implements Initializable {
     public static BaseFrameController instance;
 
     @FXML
@@ -89,6 +89,7 @@ private void resizeNode(Node node){
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
+
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -98,4 +99,24 @@ private void resizeNode(Node node){
         changeFrame(lastNode);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (FireStoreConnection.getDB().isError_version()){
+            Pane errorVersion=new Pane();
+            errorVersion.getChildren().add(new Label("you have to update your version to continue!"));
+
+            try {
+                changeFrame(errorVersion);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                changeFrame("application/fxml/entrance.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

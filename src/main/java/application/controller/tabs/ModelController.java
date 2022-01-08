@@ -27,6 +27,7 @@ public class ModelController implements FireStoreListener<Table> {
 
     //Tab modelTab;
     GridPane modelTable;
+    private static String time;
     public ModelController(GridPane modelTable){
         this.modelTable=modelTable;
         List<Table> tables=new ArrayList<Table>();
@@ -71,7 +72,9 @@ public class ModelController implements FireStoreListener<Table> {
         XMLReader.getTimeArray().forEach(el->{
             MenuItem item = new MenuItem(el);
             item.setOnAction(event->{
+                time=el;
                 showTablesByTime(el);
+
             });
             mb_time.getItems().add(item);
         });
@@ -197,6 +200,7 @@ public class ModelController implements FireStoreListener<Table> {
             cell.setIsSmoke(data.isSmoke());
             cell.setSeats(String.valueOf(data.getSeats()));
             cell.setHide(false);
+            cell.setIsAvailable(data.getIsFreeByTime().get(time));
         }
     }
 
