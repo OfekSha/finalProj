@@ -10,14 +10,15 @@
         <ColumnConstraints hgrow="SOMETIMES" percentWidth="20.0" />
         <ColumnConstraints hgrow="SOMETIMES" percentWidth="20.0" />
         <ColumnConstraints hgrow="SOMETIMES" percentWidth="20.0" />
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="20.0" />
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
-        <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
-        <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
-        <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
-        <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
+        <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints percentHeight="22.0" vgrow="SOMETIMES" />
+        <RowConstraints percentHeight="22.0" vgrow="SOMETIMES" />
+        <RowConstraints percentHeight="22.0" vgrow="SOMETIMES" />
+        <RowConstraints percentHeight="4.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <HBox fx:id="header" alignment="TOP_RIGHT" styleClass="header" GridPane.columnSpan="2147483647">
@@ -29,13 +30,8 @@
                 </Label>
             </children>
         </HBox>
-        <HBox GridPane.columnIndex="4" GridPane.rowIndex="4">
-            <children>
-            <Button fx:id="btn_back" mnemonicParsing="false" onAction="#backClicked" text="Back" />
-                <Button mnemonicParsing="false" text="Exit" />
-            </children>
-
-        </HBox>
+          <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exitClicked" text="Exit" GridPane.columnIndex="5" GridPane.rowIndex="4" />
         <StackPane fx:id="include" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+      <Button fx:id="btn_back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backClicked" text="Back" GridPane.columnIndex="4" GridPane.rowIndex="4" />
     </children>
 </fx:root>

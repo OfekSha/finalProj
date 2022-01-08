@@ -1,5 +1,6 @@
 package application.controller;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -59,7 +60,6 @@ private void resizeNode(Node node){
             resizeNode(child);
         }
     }
-
     if (node instanceof Label){
             Label text = (Label) node;
             DoubleProperty fontSize = new SimpleDoubleProperty(10);
@@ -97,6 +97,12 @@ private void resizeNode(Node node){
     @FXML
     public void backClicked(ActionEvent e) throws IOException {
         changeFrame(lastNode);
+    }
+    @FXML
+    public void exitClicked(ActionEvent e) throws IOException {
+        Platform.setImplicitExit(true);
+        Platform.exit();
+        System.exit(0);
     }
 
     @Override

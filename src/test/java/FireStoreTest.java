@@ -32,9 +32,8 @@ public class FireStoreTest  extends ApplicationTest {
         stage.setScene(scene);
 
         stage.show();
-        //root.changeFrame("application/fxml/entrance.fxml");
-        //stage.setMaximized(true);
-        //stage.setFullScreen(true);
+        stage.setMaximized(true);
+        stage.setFullScreen(true);
 
 
     }

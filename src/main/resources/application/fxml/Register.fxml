@@ -3,61 +3,45 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="281.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
+
+<GridPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="282.0">
-         <children>
-            <Label prefWidth="90.0" text="res Name:" />
-            <TextField id="tf_res_name" fx:id="TF_restName" prefWidth="140.0" promptText="BP" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="26.0" prefWidth="282.0">
-         <children>
-            <Label prefWidth="90.0" text="password" />
-            <TextField id="tf_password" fx:id="TF_password" prefWidth="140.0" promptText="*****" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="215.0">
-         <children>
-            <SplitMenuButton fx:id="SMBtn_tags" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" prefHeight="25.0" prefWidth="132.0" text="tags">
-               <items>
-                  <CheckMenuItem mnemonicParsing="false" text="Kosher" />
-                  <CheckMenuItem mnemonicParsing="false" text="Thiland" />
-                  <CheckMenuItem mnemonicParsing="false" text="Milky" />
-                  <CheckMenuItem mnemonicParsing="false" text="Meaty" />
-               </items>
-            </SplitMenuButton>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="33.0" prefWidth="215.0">
-         <children>
-            <Label prefWidth="90.0" text="Owner Name:" />
-            <TextField id="tf_owner_name" fx:id="TF_ownerName" prefHeight="23.0" prefWidth="140.0" promptText="name" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
-         <children>
-            <Label prefWidth="90.0" text="Address:" />
-            <TextField id="tf_address" fx:id="TF_address" prefHeight="23.0" prefWidth="140.0" promptText="name" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="215.0">
-         <children>
-            <Label prefWidth="90.0" text="Phone number:" />
-            <TextField id="tf_phone" fx:id="TF_phone" prefHeight="23.0" prefWidth="140.0" promptText="name" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="48.0" prefWidth="215.0">
-         <children>
-            <TextField fx:id="TF_Geo_Lat" editable="false" />
-            <TextField fx:id="TF_Geo_Long" editable="false" />
-            <Button fx:id="btn_location" mnemonicParsing="false" onAction="#btn_clicked" prefHeight="32.0" prefWidth="161.0" text="location" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER">
-         <children>
-            <Button fx:id="btn_register" mnemonicParsing="false" onAction="#btn_clicked" text="Register" />
-         </children>
-      </HBox>
+      <Label text="res Name:" />
+      <TextField id="tf_res_name" fx:id="TF_restName" prefWidth="140.0" promptText="BP" GridPane.columnIndex="1" />
+      <TextField id="tf_password" fx:id="TF_password" prefWidth="140.0" promptText="*****" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <SplitMenuButton fx:id="SMBtn_tags" alignment="CENTER" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" popupSide="RIGHT" text="tags" GridPane.columnSpan="3" GridPane.rowIndex="6">
+         <items>
+            <CheckMenuItem mnemonicParsing="false" text="Kosher" />
+            <CheckMenuItem mnemonicParsing="false" text="Thiland" />
+            <CheckMenuItem mnemonicParsing="false" text="Milky" />
+            <CheckMenuItem mnemonicParsing="false" text="Meaty" />
+         </items>
+      </SplitMenuButton>
+      <Label text="Owner Name:" GridPane.rowIndex="2" />
+      <TextField id="tf_owner_name" fx:id="TF_ownerName" prefHeight="23.0" prefWidth="140.0" promptText="name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="Address:" GridPane.rowIndex="3" />
+      <TextField id="tf_address" fx:id="TF_address" prefHeight="23.0" prefWidth="140.0" promptText="name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="Phone number:" GridPane.rowIndex="4" />
+      <TextField id="tf_phone" fx:id="TF_phone" prefHeight="23.0" prefWidth="140.0" promptText="name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="TF_Geo_Lat" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <TextField fx:id="TF_Geo_Long" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button fx:id="btn_location" mnemonicParsing="false" onAction="#btn_clicked" prefHeight="32.0" prefWidth="161.0" text="location" GridPane.rowIndex="5" />
+      <Button fx:id="btn_register" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btn_clicked" text="Register" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <Label text="password" GridPane.rowIndex="1" />
    </children>
-</VBox>
+</GridPane>

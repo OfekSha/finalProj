@@ -48,6 +48,8 @@
 	-fx-effect: dropshadow(gaussian ,#426eb4,1,1,0px,0px);
 }
 .button{
+    -fx-alignment: center;
+    -fx-text-alignment: center;
 	-fx-background-color:#00ced1, #018486;
 	-fx-background-radius: 25px;
 	-fx-effect: dropshadow(gaussian  ,#007c7e,15,0.2,3px,5px);
@@ -60,12 +62,16 @@
 	-fx-effect: dropshadow(gaussian ,#76b5b5,1,1,0px,0px);
 }
 .button:hover{
+    -fx-text-alignment: center;
+    -fx-alignment: center;
 	-fx-background-color:#048b8d;
 	-fx-background-radius: 25px;
 	-fx-effect: dropshadow(gaussian  ,#004b4d,15,0.2,3px,5px);
 
 }
 .button:armed{
+    -fx-text-alignment: center;
+    -fx-alignment: center;
 	-fx-background-color:#026d6e;
 	-fx-background-radius: 25px;
 	-fx-effect: dropshadow(gaussian  ,#004b4d,15,0.2,5px,8px);
