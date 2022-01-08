@@ -69,8 +69,8 @@ public class RegisterController implements Initializable, ILocationGetter {
         if (btn.equals(btn_location)){
             temp_rest= new Restaurant(TF_restName.getText(),TF_ownerName.getText(),TF_address.getText(),TF_phone.getText(),TF_password.getText(),null,null,"-1");
             temp_rest.getEmployee().add(new Client(TF_ownerName.getText(),TF_password.getText(), Permission.Owner));
-            temp_rest.setModel_width(6);
-            temp_rest.setModel_height(6);
+            temp_rest.setModel_width(5);
+            temp_rest.setModel_height(5);
             DataHolder.tempRest=temp_rest;
             try {
                 BaseFrameController.instance.changeFrame(new MapController(this));
