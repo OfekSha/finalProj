@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Table {
     private int id=0; // id of table.
     private int seats=0; // number of seats.
-    private boolean isSmoke=false; // is in smoking zone.
+    private boolean smoke=false; // is in smoking zone.
     private boolean isFree=false; // is free to order.
     private HashMap<String,Boolean> isFreeByTime= new HashMap<String,Boolean>();
     private int x=0,y=0; // place in the model.
@@ -21,7 +21,7 @@ public class Table {
         this();
         this.id = id;
         this.seats = seats;
-        this.isSmoke = isSmoke;
+        this.smoke = isSmoke;
         this.isFree = isFree;
         this.x = x;
         this.y = y;
@@ -58,11 +58,11 @@ public class Table {
     }
 
     public boolean isSmoke() {
-        return isSmoke;
+        return smoke;
     }
 
     public void setSmoke(boolean smoke) {
-        isSmoke = smoke;
+        this.smoke = smoke;
     }
 
     public boolean isFree() {

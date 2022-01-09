@@ -110,7 +110,7 @@
               <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                       <right>
-                          <VBox fx:id="vbox_model_view_buttons" prefHeight="472.0" prefWidth="90.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
+                          <VBox fx:id="vbox_model_view_buttons" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
                       </right>
                       <center>
                           <GridPane fx:id="modelTable" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: black; -fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">

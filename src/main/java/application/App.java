@@ -22,9 +22,8 @@ public class App extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-        //root.changeFrame("application/fxml/entrance.fxml");
-       // primaryStage.setMaximized(true);
-       // primaryStage.setFullScreen(true);
+        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
 
     }
     private void initDataBase(){

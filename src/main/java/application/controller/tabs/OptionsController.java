@@ -19,8 +19,6 @@ public class OptionsController implements ILocationGetter {
     GridPane menu;
     TextField name;
     TextField owner;
-    TextField country;
-    TextField region;
     TextField adr;
     TextField phone;
     TextField location;
@@ -35,12 +33,10 @@ public class OptionsController implements ILocationGetter {
        Restaurant temp_rest = DataHolder.restaurant.get(DataHolder.rest_id).get();
        name=createGridPaneLine("restaurant name:",0,new TextField(),temp_rest.getName());
        owner=createGridPaneLine("owner name:",1,new TextField(),temp_rest.getOwnerName());
-       country=createGridPaneLine("country:",2,new TextField());
-       region=createGridPaneLine("Region:",3,new TextField());
-       adr=createGridPaneLine("Address:",4,new TextField(),temp_rest.getAddress());
-       phone=createGridPaneLine("Phone number:",5,new TextField(),temp_rest.getPhoneNumber());
-       location=createGridPaneLine("Location:",6,new TextField());
-       status=createGridPaneLine("Status:",7,new TextField(),temp_rest.isAvailable()+"");
+       adr=createGridPaneLine("Address:",2,new TextField(),temp_rest.getAddress());
+       phone=createGridPaneLine("Phone number:",3,new TextField(),temp_rest.getPhoneNumber());
+       location=createGridPaneLine("Location:",4,new TextField());
+       status=createGridPaneLine("Status:",5,new TextField(),temp_rest.isAvailable()+"");
        status.setEditable(false);
        location.setText(DataHolder.tempRest.getPosition().getLatitude() + " : "+temp_rest.getPosition().getLongitude());
        location.setOnMouseClicked(ev->{
